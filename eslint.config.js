@@ -31,14 +31,42 @@ export default tseslint.config(
       "react/function-component-definition": [
         "error",
         {
-          "namedComponents": "arrow-function",
-          "unnamedComponents": "arrow-function",
+          namedComponents: "arrow-function",
+          unnamedComponents: "arrow-function",
+        },
+      ],
+      "func-style": ["error", "expression"],
+      "@typescript-eslint/no-restricted-types": [
+        "error",
+        {
+          types: {
+            "React.FC": {
+              message:
+                "Do not use React.FC. Use explicit props typing instead: ({ prop }: Props) => JSX.Element",
+            },
+            "React.FunctionComponent": {
+              message:
+                "Do not use React.FunctionComponent. Use explicit props typing instead: ({ prop }: Props) => JSX.Element",
+            },
+          },
+        },
+      ],
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["*.css", "!*.module.css"],
+              message:
+                'Use CSS modules instead: import styles from "abc.module.css"',
+            },
+          ],
         },
       ],
     },
     settings: {
-      "react": {
-        "version": "detect",
+      react: {
+        version: "detect",
       },
     },
   },
