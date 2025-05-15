@@ -1,0 +1,92 @@
+/**
+ * variables defined for buttons:
+ *  - button-background
+ *  - button-foreground
+ */
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--spacing-2);
+  height: var(--size-3);
+}
+
+.button-main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-4);
+
+  color: var(--button-foreground);
+  background-color: var(--button-background);
+
+  border-radius: var(--border-radius);
+  border: none;
+
+  padding: var(--spacing-3);
+  margin: 0;
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  transition-duration: var(--transition-fast);
+}
+
+/* If the cancel button is also there, we want to disable the right rounded corners
+ * so it looks like they are merged */
+.button-main.has-sibling-cancel {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button-cancel {
+  display: flex;
+  place-items: center;
+
+  color: var(--button-foreground);
+  background-color: var(--button-background);
+
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  border: none;
+
+  cursor: pointer;
+
+  transition-duration: var(--transition-fast);
+}
+
+.primary-button {
+  --button-foreground: var(--primary-accent-foreground);
+  --button-background: var(--primary-accent);
+}
+
+.primary-button:hover {
+  --button-foreground: color-mix(
+    in hsl,
+    var(--primary-accent-foreground) 95%,
+    #fff
+  );
+  --button-background: color-mix(in hsl, var(--primary-accent) 93%, #fff);
+}
+
+.primary-button:active {
+  --button-foreground: color-mix(
+    in hsl,
+    var(--primary-accent-foreground) 97%,
+    #00071f
+  );
+  --button-background: color-mix(in hsl, var(--primary-accent) 92%, #00071f);
+}
+
+.disabled > .primary-button {
+  --button-foreground: color-mix(
+    in hsl,
+    var(--primary-accent-foreground) 60%,
+    #000
+  );
+  --button-background: color-mix(in hsl, var(--primary-accent) 60%, #000);
+}

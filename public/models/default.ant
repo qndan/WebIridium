@@ -1,0 +1,16 @@
+// Load a model from disk, type in a model,
+// or pick one of the example models from
+// the Examples menu
+
+// Note: // is used to indicate a comment
+
+// e.g.
+
+A -> B; k1*A
+B -> C; k2*B
+k1 = 0.35; k2 = 0.2
+B = 0; C = 0
+A = 10
+
+// If you're not sure what to do, just
+// click the simulate button to the left

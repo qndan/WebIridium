@@ -6,4 +6,40 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Colors */
+  --primary-background: #101112;
+  --primary-foreground: #f2f5f7;
+  --primary-border: #212226;
+
+  --primary-accent: #0785d9;
+  --primary-accent-foreground: #e1e3e6;
+
+  /* Sizing */
+  --size-1: 12px;
+  --size-2: 16px;
+  --size-3: 32px;
+  --size-4: 48px;
+  --size-6: 64px;
+
+  --spacing-1: 2px;
+  --spacing-2: 3px;
+  --spacing-3: 6px;
+  --spacing-4: 8px;
+  --spacing-5: 16px;
+  --spacing-panel: var(--spacing-5);
+
+  --border-radius: 3px;
+  --border-radius-large: 6px;
+
+  /* Misc. */
+  --transition-fast: 0.1s;
+}
+
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }

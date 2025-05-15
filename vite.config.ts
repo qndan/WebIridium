@@ -11,6 +11,7 @@ export default defineConfig({
   resolve: {
     alias: {
       //@ts-expect-error b/c different module resolution?
+      // eslint-disable-next-line
       "@": path.resolve(__dirname, "src"),
     },
   },
@@ -19,4 +20,5 @@ export default defineConfig({
       localsConvention: "camelCaseOnly",
     },
   },
+  assetsInclude: ["**/*.ant"],
 });

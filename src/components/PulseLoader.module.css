@@ -1,0 +1,13 @@
+@keyframes pulse {
+  0% {
+    transform: scaleY(0.5);
+  }
+
+  50% {
+    transform: scaleY(2);
+  }
+
+  100% {
+    transform: scaleY(0.5);
+  }
+}
