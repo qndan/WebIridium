@@ -48,7 +48,10 @@ const Button = ({
             cssOverride={{ height: "1rem" }}
           />
         ) : (
-          [icon, children]
+          <>
+            {icon}
+            {children}
+          </>
         )}
       </button>
 

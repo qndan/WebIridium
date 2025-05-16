@@ -2,6 +2,7 @@
 
 /**
  * Wraps over the copasi.js module to avoid having to keep track of the module object.
+ * IMPORTANT: accessing any bindings will error if the module has not yet loaded.
  */
 
 import COPASI from "./copasi";

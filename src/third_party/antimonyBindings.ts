@@ -2,7 +2,7 @@
 
 /**
  * Various bindings to libantimony.
- * IMPORTANT: If a function is called before libantimony is loaded an error will be thrown!
+ * IMPORTANT: If a function is called before libantimony is loaded an error will throw!
  *
  * Reference available here: https://antimony.sourceforge.net/antimony__api_8h.html
  */
@@ -193,18 +193,20 @@ export const freeAll = createBinding<void, []>("freeAll", "null", ["null"]);
  * Frees a previously allocated memory block.
  * @param strPtr Pointer to the memory to free.
  */
-export const jsFree = createBinding<void, [number]>("free", "null", ["number"]);
+export const jsFree = (strPtr: number) => {
+  checkLoaded();
+  loadedLibAntimony._free(strPtr);
+}
 
 /**
  * Allocates memory for a UTF-8 encoded string.
  * @param newStr The string to encode and allocate.
  * @returns A pointer to the allocated memory.
  */
-export const jsAllocateUTF8 = createBinding<number, [string]>(
-  "allocateUTF8",
-  "number",
-  ["string"],
-);
+export const jsAllocateUTF8 = (newStr: string): number => {
+  checkLoaded();
+  return loadedLibAntimony.allocateUTF8(newStr);
+};
 
 // This will run asynchronously. Using this interesting feature: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void.
 void initLoad();

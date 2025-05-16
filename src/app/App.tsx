@@ -1,7 +1,7 @@
-import PanelLayout from "./panels/PanelLayout";
+import PanelLayout from "@/components/PanelLayout";
 import TimeCourseSimulationPanel from "./panels/TimeCourseSimulationPanel";
 import AntimonyEditorPanel from "./panels/AntimonyEditorPanel";
-import ResultsPanel from "./panels/ResultsPanel";
+import ResultsPanel from "./panels/results/ResultsPanel";
 
 const App = () => {
   return (

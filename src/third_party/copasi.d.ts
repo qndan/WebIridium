@@ -1,3 +1,4 @@
+/* eslint-disable */
 import type exp from "constants";
 
 export interface SimResult {
