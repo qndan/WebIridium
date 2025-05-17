@@ -1,6 +1,31 @@
-import type { Action, Result, SimulateResult } from "public/simulationWorker";
 import type { SimResult } from "@/third_party/copasi";
+import { createWorker } from "./workerService.ts";
 
+export const simulateTimeCourse = (
+  antimonyCode: string,
+): Promise<SimResult> => {
+  return new Promise((resolve) => {
+    queueTask("timeCourse", resolve, antimonyCode);
+  }).then((result) => (result as TimeCourseResult).data);
+};
+
+//// Implementation:
+
+// Types for the worker
+type TimeCourseAction = {
+  type: "timeCourse";
+  id: number;
+  payload: string;
+};
+
+type TimeCourseResult = {
+  type: "timeCourse";
+  id: number;
+  data: SimResult;
+};
+
+export type Action = TimeCourseAction;
+export type Result = TimeCourseResult;
 // picked arbitrarily
 const MAX_WORKERS = 3;
 
@@ -74,9 +99,7 @@ const getAvailableWorker = (): WorkerInfo | null => {
   } else if (workerPool.length > MAX_WORKERS) {
     return null;
   } else {
-    const newWorker = new Worker(
-      new URL("/simulationWorker.ts", import.meta.url),
-    );
+    const newWorker = createWorker("simulation");
     const newWorkerInfo: WorkerInfo = {
       state: "idle",
       worker: newWorker,
@@ -105,12 +128,4 @@ const initializeWorker = (workerInfo: WorkerInfo) => {
       workerInfo.state = "idle";
     }
   });
-};
-
-export const simulateTimeCourse = (
-  antimonyCode: string,
-): Promise<SimResult> => {
-  return new Promise((resolve) => {
-    queueTask("timeCourse", resolve, antimonyCode);
-  }).then((result) => (result as SimulateResult).data);
 };

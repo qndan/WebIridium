@@ -10,6 +10,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
+      "@public/": path.resolve(__dirname),
     },
   },
   css: {
@@ -17,5 +18,5 @@ export default defineConfig({
       localsConvention: "camelCaseOnly",
     },
   },
-  assetsInclude: ["**/*.ant", "**/*.wasm"],
+  assetsInclude: ["**/*.ant"],
 });

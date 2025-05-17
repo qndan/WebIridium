@@ -19,11 +19,14 @@ const palette = [
 
 export interface SimulationResultsPlotProps {
   /** Used for sizing the plot. */
-  containerRef: React.RefObject<HTMLElement | null>,
+  containerRef: React.RefObject<HTMLElement | null>;
   result: SimResult;
 }
 
-const SimulationResultPlot = ({ containerRef, result }: SimulationResultsPlotProps) => {
+const SimulationResultPlot = ({
+  containerRef,
+  result,
+}: SimulationResultsPlotProps) => {
   const [width, setWidth] = useState(100);
   const plotWidth = Math.min(2048, width - 16);
 

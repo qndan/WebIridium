@@ -23,5 +23,6 @@ These dependencies are handled by the `public/simulationWorker.ts` worker.
 
 ## workers
 
-We have web workers located in `public/`. I put them in `public/` so they can access the third party dependencies. If you are adding
-new workers, make sure to name them "<name>Worker.ts" so that they get included in our `tsconfig.app.json` and get typechecked.
+We have web workers located in `public/`. I put them in `public/` so they can access the third party dependencies (those dependencies
+import relative to the worker file, so it has to be at root). Unfortunately, this means we cannot include workers in our
+build step.
