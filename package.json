@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "eslint-plugin-tsdoc": "^0.4.0",
     "jotai": "^2.12.4",
     "jotai-scope": "^0.7.3",
     "plotly.js": "^3.0.1",
