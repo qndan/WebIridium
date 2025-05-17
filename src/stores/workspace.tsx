@@ -20,4 +20,7 @@ export const simulationResultAtom = atom<SimResult | null>(null);
  * so you can you scope the workspace.
  */
 export const allWorkspaceAtoms = [
-  editorContentAtom, isSimulatingAtom, simulationResultAtom];
+  editorContentAtom,
+  isSimulatingAtom,
+  simulationResultAtom,
+];

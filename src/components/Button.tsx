@@ -41,12 +41,10 @@ const Button = ({
           canCancel && styles.hasSiblingCancel,
         )}
         onClick={onClick}
+        disabled={isLoading}
       >
         {isLoading ? (
-          <PulseLoader
-            color="var(--button-foreground)"
-            cssOverride={{ height: "1rem" }}
-          />
+          <PulseLoader color="var(--button-foreground)" />
         ) : (
           <>
             {icon}

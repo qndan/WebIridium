@@ -16,9 +16,7 @@ export const AntimonyEditorPanel = () => {
 
   return (
     <div className={styles.antimonyEditorPanel}>
-      <select
-        onChange={e => setEditorContent(models[e.target.value])}
-      >
+      <select onChange={(e) => setEditorContent(models[e.target.value])}>
         <option value="default">Default</option>
         <option value="chicken">Chicken</option>
       </select>
@@ -26,7 +24,8 @@ export const AntimonyEditorPanel = () => {
         name="anitmony-test"
         value={editorContent}
         style={{ width: "100%", height: "500px" }}
-        onChange={e => setEditorContent(e.target.value)}/>
+        onChange={(e) => setEditorContent(e.target.value)}
+      />
     </div>
   );
 };

@@ -7,9 +7,12 @@
 
 # third-party stuff
 
-`libantimony` and `copasijs` have been vendored in.
+`libantimony` and `copasijs` have been vendored in the `public/` directory.
+They should be used by interfacing with the `public/simulationWorker.ts` worker. This is in part to keep the global state of these
+dependencies isolated from the rest of the code. It also helps us because our linter can't handle the weird stuff we have to do
+to interact with them.
 
-Bindings and stuff for them are located in `src/third_party/`
-Additional files for them are in `public/`
+# workers
 
-Some bindings were rewritten to be more usable. These bindings may have to be updated when updating these dependencies.
+We have web workers located in `public/`. I put them in `public/` so they can access the third party dependencies. If you are adding
+new workers, make sure to name them "<name>Worker.ts" so that they get included in our `tsconfig.app.json` and get typechecked.
