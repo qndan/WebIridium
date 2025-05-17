@@ -8,12 +8,14 @@ importScripts(
 );
 
 export type SimulateAction = {
-  type: "simulate";
-  antCode: string;
+  type: "timeCourse";
+  id: number;
+  payload: string;
 };
 
 export type SimulateResult = {
-  type: "simulate";
+  type: "timeCourse";
+  id: number;
   data: SimResult;
 };
 
@@ -63,8 +65,8 @@ self.onmessage = async (e: MessageEvent<Action>) => {
 
   const action = e.data;
   switch (action.type) {
-    case "simulate":
-      const sbmlConversion = antimony.convertAntimonyToSBML(action.antCode);
+    case "timeCourse":
+      const sbmlConversion = antimony.convertAntimonyToSBML(action.payload);
       // TODO: notify user about these warnings
       if (sbmlConversion.getWarnings()) {
         console.warn(sbmlConversion.getWarnings());
@@ -76,7 +78,8 @@ self.onmessage = async (e: MessageEvent<Action>) => {
 
       const result = copasi.simulateEx(0, 20, 200);
       self.postMessage({
-        type: "simulate",
+        type: "timeCourse",
+        id: action.id,
         data: result,
       });
       break;
