@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import type { SimResult } from "@/third_party/copasi";
+import { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
 
 const palette = [
@@ -17,10 +18,15 @@ const palette = [
 ];
 
 export interface SimulationResultsPlotProps {
+  /** Used for sizing the plot. */
+  containerRef: React.RefObject<HTMLElement | null>,
   result: SimResult;
 }
 
-const SimulationResultPlot = ({ result }: SimulationResultsPlotProps) => {
+const SimulationResultPlot = ({ containerRef, result }: SimulationResultsPlotProps) => {
+  const [width, setWidth] = useState(100);
+  const plotWidth = Math.min(2048, width - 16);
+
   const plotData = [];
 
   const timeColumn = result.columns[0];
@@ -38,10 +44,23 @@ const SimulationResultPlot = ({ result }: SimulationResultsPlotProps) => {
     });
   }
 
+  useEffect(() => {
+    const onResize = () => {
+      if (containerRef.current) {
+        setWidth(containerRef.current.offsetWidth);
+      }
+    };
+
+    onResize();
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
     <Plot
       data={plotData as any}
-      layout={{ width: 400, height: 400, title: "test" as any }}
+      layout={{ width: plotWidth, height: plotWidth, title: "test" as any }}
     />
   );
 };
