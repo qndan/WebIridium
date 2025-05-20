@@ -5,7 +5,7 @@ export interface SimResult {
   num_variables: number;
   recorded_steps: number;
   titles: string[];
-  columns: string[];
+  columns: number[][];
 }
 
 export interface SpeciesInfo {

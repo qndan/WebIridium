@@ -58,7 +58,7 @@ const SimulationResultPlot = ({
 
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, []);
+  }, [containerRef]);
 
   return (
     <Plot

@@ -1,4 +1,4 @@
-import { simulateTimeCourse } from "@/services/simulationService";
+import { simulateTimeCourse } from "@/features/simulation";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import {
@@ -12,13 +12,17 @@ const useSimulate = () => {
   const setSimulationResult = useSetAtom(simulationResultAtom);
   const [isSimulating, setIsSimulating] = useAtom(isSimulatingAtom);
 
-  const simulateTimeCourseCallback = async () => {
+  const simulateTimeCourseCallback = async (abortSignal?: AbortSignal) => {
     if (!isSimulating) {
       setIsSimulating(true);
 
-      const result = await simulateTimeCourse(editorContent);
+      try {
+        const result = await simulateTimeCourse(editorContent, abortSignal);
+        setSimulationResult(result);
+      } catch (err) {
+        // TODO: implement error handling
+      }
 
-      setSimulationResult(result);
       setIsSimulating(false);
     }
   };
