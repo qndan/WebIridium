@@ -1,10 +1,21 @@
 # general stuff
 
+## testing
+
+Run `npm run test` to run the test suite. We use Vitest + React Testing Library for tests.
+
+### resources for testing
+
+- philosophy: https://testing-library.com/docs/guiding-principles
+- examples: https://testing-library.com/docs/react-testing-library/example-intro
+- queries: https://testing-library.com/docs/queries/about
+- list of DOM matchers: https://github.com/testing-library/jest-dom
+
 ## code style
 
 Run `npm run format` to reformat your code.
 Run `npm run lint` to run the linter. Use `npm run lint:fix` to accept any automatic fixes it offers.
-Use TSDoc-style comments. Avoid commenting obvious stuff.
+Avoid commenting obvious stuff.
 
 # specific stuff
 

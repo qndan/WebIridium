@@ -5,6 +5,8 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import react from "eslint-plugin-react";
 import tseslint from "typescript-eslint";
 import tsdoc from "eslint-plugin-tsdoc";
+import jestDom from "eslint-plugin-jest-dom";
+import testingLibrary from "eslint-plugin-testing-library";
 
 export default tseslint.config(
   { ignores: ["dist", "public"] },
@@ -12,6 +14,8 @@ export default tseslint.config(
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
+      jestDom.configs["flat/recommended"],
+      testingLibrary.configs["flat/react"],
     ],
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
@@ -25,7 +29,7 @@ export default tseslint.config(
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
-      tsdoc: tsdoc,
+      tsdoc,
       react,
     },
     rules: {

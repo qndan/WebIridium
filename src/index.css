@@ -43,7 +43,9 @@
   --transition-fast: 0.1s;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 

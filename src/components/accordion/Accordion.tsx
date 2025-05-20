@@ -5,11 +5,7 @@ export interface AccordionProps {
 }
 
 const Accordion = ({ children }: AccordionProps) => {
-  return (
-    <div>
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 };
 
 export default Accordion;

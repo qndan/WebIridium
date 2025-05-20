@@ -2,7 +2,6 @@ import clsx from "clsx";
 import { useState } from "react";
 import styles from "./Accordion.module.css";
 import ChevronDown from "@/icons/ChevronDown";
-import ChevronUp from "@/icons/ChevronUp";
 
 export interface AccordionItemProps {
   title: React.ReactNode;
@@ -29,7 +28,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
 
   const onAnimationEnd = () => {
     setBodyVisible(!collapsed);
-  }
+  };
 
   return (
     <div className={clsx(styles.accordionItem, collapsed && styles.collapsed)}>
@@ -48,10 +47,13 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
       </h3>
 
       <div
-        className={clsx(styles.accordionItemBody,
-                        shouldStartAnimating && styles.accordionItemBodyAnimated)}
+        className={clsx(
+          styles.accordionItemBody,
+          shouldStartAnimating && styles.accordionItemBodyAnimated,
+        )}
         onAnimationEnd={onAnimationEnd}
-        style={bodyVisible ? {} : {display: "none"}}
+        style={bodyVisible ? {} : { display: "none" }}
+        data-testid="accordionBody"
       >
         {children}
       </div>

@@ -40,16 +40,13 @@ export const TimeCourseSimulationPanel = () => {
       </Button>
 
       <Accordion>
-        <AccordionItem
-          title="Simulation Parameters"
-        >
+        <AccordionItem title="Simulation Parameters">
           <form>
             <div>
               <label>
                 <span>Start Time</span>
                 <input type="number" />
               </label>
-
             </div>
             <div>
               <label>
