@@ -23,5 +23,9 @@ export default defineConfig({
   test: {
     setupFiles: ["./src/vitest-setup.ts"],
     environment: "jsdom",
+    coverage: {
+      include: ["src"],
+      exclude: ["**/__mocks__/**", "src/icons/", "src/third_party/"],
+    },
   },
 });
