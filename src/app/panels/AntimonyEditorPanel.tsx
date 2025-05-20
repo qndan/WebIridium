@@ -5,10 +5,12 @@ import { editorContentAtom } from "@/stores/workspace";
 
 import defaultModel from "/models/default.ant?raw";
 import chickenModel from "/models/chicken.ant?raw";
+import bigYAxisModel from "/models/bigyaxis.ant?raw";
 
 const models: Record<string, string> = {
   default: defaultModel,
   chicken: chickenModel,
+  bigYAxis: bigYAxisModel,
 };
 
 export const AntimonyEditorPanel = () => {
@@ -19,6 +21,7 @@ export const AntimonyEditorPanel = () => {
       <select onChange={(e) => setEditorContent(models[e.target.value])}>
         <option value="default">Default</option>
         <option value="chicken">Chicken</option>
+        <option value="bigYAxis">Big Y-Axis</option>
       </select>
       <textarea
         name="anitmony-test"

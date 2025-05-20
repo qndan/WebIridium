@@ -1,3 +1,6 @@
+// TODO: Add automatically killing unused workers.
+//       This is low priority since there isn't any obvious way to get multiple workers at the moment.
+
 export type Action = {
   type: string;
   id: number;
