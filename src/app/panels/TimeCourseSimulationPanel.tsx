@@ -2,6 +2,8 @@ import { useRef } from "react";
 import styles from "./TimeCourseSimulationPanel.module.css";
 import Button from "@/components/Button";
 import PlayIcon from "@/icons/PlayIcon";
+import Accordion from "@/components/accordion/Accordion";
+import AccordionItem from "@/components/accordion/AccordionItem";
 import useSimulate from "@/hooks/useSimulate";
 
 export const TimeCourseSimulationPanel = () => {
@@ -36,6 +38,28 @@ export const TimeCourseSimulationPanel = () => {
       >
         Simulate
       </Button>
+
+      <Accordion>
+        <AccordionItem
+          title="Simulation Parameters"
+        >
+          <form>
+            <div>
+              <label>
+                <span>Start Time</span>
+                <input type="number" />
+              </label>
+
+            </div>
+            <div>
+              <label>
+                <span>End Time</span>
+                <input type="number" />
+              </label>
+            </div>
+          </form>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 };

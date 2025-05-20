@@ -1,5 +1,6 @@
 :root {
   color-scheme: light dark;
+  box-sizing: border-box;
 
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-synthesis: none;
@@ -11,9 +12,15 @@
   --primary-background: #101112;
   --primary-foreground: #f2f5f7;
   --primary-border: #212226;
+  --primary-solid-border: 1px solid var(--primary-border);
 
   --primary-accent: #0785d9;
   --primary-accent-foreground: #e1e3e6;
+
+  --secondary-background: #252729;
+  --secondary-foreground: #dee1e3;
+  --secondary-border: #383940;
+  --secondary-solid-border: 1px solid var(--secondary-border);
 
   /* Sizing */
   --size-1: 12px;
@@ -26,14 +33,18 @@
   --spacing-2: 3px;
   --spacing-3: 6px;
   --spacing-4: 8px;
-  --spacing-5: 16px;
-  --spacing-panel: var(--spacing-5);
+  --spacing-5: 14px;
+  --spacing-panel: 10px;
 
   --border-radius: 3px;
   --border-radius-large: 6px;
 
   /* Misc. */
   --transition-fast: 0.1s;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 #app {

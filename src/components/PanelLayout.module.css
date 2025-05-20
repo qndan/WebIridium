@@ -11,5 +11,5 @@
 }
 
 .panel-layout > div {
-  border: 1px solid var(--primary-border);
+  border: var(--primary-solid-border);
 }
