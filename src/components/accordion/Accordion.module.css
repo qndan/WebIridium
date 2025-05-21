@@ -1,8 +1,8 @@
-.accordion-item {
+.accordion {
   display: block;
 }
 
-.accordion-item-title {
+.item-title {
   display: flex;
   color: var(--secondary-foreground);
   background-color: var(--secondary-background);
@@ -13,12 +13,12 @@
   border-bottom-left-radius: 0;
 }
 
-.collapsed .accordion-item-title {
+.collapsed .item-title {
   border-bottom-right-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
 }
 
-.accordion-item-title-button {
+.item-title-button {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -35,17 +35,17 @@
   cursor: pointer;
 }
 
-.accordion-item-title-icon {
+.item-title-icon {
   display: inline-block;
   line-height: 0;
   transition-duration: var(--transition-fast);
 }
 
-.collapsed .accordion-item-title-icon {
+.collapsed .item-title-icon {
   transform: rotate(180deg);
 }
 
-.accordion-item-body {
+.item-body {
   color: var(--secondary-foreground);
   background-color: var(--secondary-background);
   border: var(--secondary-solid-border);
@@ -57,11 +57,11 @@
   overflow: hidden;
 }
 
-.accordion-item-body-animated {
+.item-body-animated {
   animation: var(--transition-fast) ease forwards body-open;
 }
 
-.collapsed .accordion-item-body-animated {
+.collapsed .item-body-animated {
   animation: var(--transition-fast) ease forwards body-close;
 }
 

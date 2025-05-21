@@ -31,13 +31,11 @@ const Button = ({
   children,
 }: ButtonProps) => {
   return (
-    <span
-      className={clsx(styles.buttonContainer, isLoading && styles.disabled)}
-    >
+    <span className={clsx(styles.container, isLoading && styles.disabled)}>
       <button
         className={clsx(
-          styles.buttonMain,
-          styles.primaryButton,
+          styles.main,
+          styles.primary,
           canCancel && styles.hasSiblingCancel,
         )}
         onClick={onClick}
@@ -55,7 +53,8 @@ const Button = ({
 
       {canCancel && (
         <button
-          className={clsx(styles.buttonCancel, styles.primaryButton)}
+          className={clsx(styles.cancel, styles.primary)}
+          aria-label="cancel"
           onClick={onCancel}
         >
           <CloseIcon />

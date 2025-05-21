@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import PlayIcon from "@/icons/PlayIcon";
 import Accordion from "@/components/accordion/Accordion";
 import AccordionItem from "@/components/accordion/AccordionItem";
-import useSimulate from "@/hooks/useSimulate";
+import useSimulate from "@/hooks/workspace/useSimulate";
 
 export const TimeCourseSimulationPanel = () => {
   const { isSimulating, simulateTimeCourse } = useSimulate();

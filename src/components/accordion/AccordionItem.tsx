@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useState } from "react";
 import styles from "./Accordion.module.css";
-import ChevronDown from "@/icons/ChevronDown";
+import ChevronDownIcon from "@/icons/ChevronDownIcon";
 
 export interface AccordionItemProps {
   title: React.ReactNode;
@@ -31,16 +31,16 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
   };
 
   return (
-    <div className={clsx(styles.accordionItem, collapsed && styles.collapsed)}>
-      <h3 className={styles.accordionItemTitle}>
+    <div className={clsx(styles.item, collapsed && styles.collapsed)}>
+      <h3 className={styles.itemTitle}>
         <button
-          className={styles.accordionItemTitleButton}
+          className={styles.itemTitleButton}
           aria-expanded={!collapsed}
           onClick={onClick}
         >
           {/* TODO: implement WAI-ARIA guidelines of having aria-controls of the button set to id of the body */}
-          <div className={styles.accordionItemTitleIcon}>
-            <ChevronDown />
+          <div className={styles.itemTitleIcon}>
+            <ChevronDownIcon />
           </div>
           {title}
         </button>
@@ -48,8 +48,8 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
 
       <div
         className={clsx(
-          styles.accordionItemBody,
-          shouldStartAnimating && styles.accordionItemBodyAnimated,
+          styles.itemBody,
+          shouldStartAnimating && styles.itemBodyAnimated,
         )}
         onAnimationEnd={onAnimationEnd}
         style={bodyVisible ? {} : { display: "none" }}
