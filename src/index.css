@@ -19,7 +19,7 @@
 
   --secondary-background: #252729;
   --secondary-foreground: #dee1e3;
-  --secondary-border: #383940;
+  --secondary-border: #43444d;
   --secondary-solid-border: 1px solid var(--secondary-border);
 
   --input-background: #393a3b;
@@ -40,7 +40,8 @@
   --font-size-3: 1.1rem;
 
   --spacing-1: 2px;
-  --spacing-2: 3px;
+  --spacing-1-5: 4px;
+  --spacing-2: 4px;
   --spacing-3: 6px;
   --spacing-4: 8px;
   --spacing-5: 12px;

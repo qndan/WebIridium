@@ -6,7 +6,7 @@
   right: 0;
 
   display: grid;
-  grid-template-columns: 1fr 2fr 1.25fr;
+  grid-template-columns: 1fr 1.5fr 1.5fr;
   background-color: var(--primary-background);
 }
 

@@ -11,10 +11,7 @@ export const ResultsPanel = () => {
       {!simulationResults ? (
         "nothing yet..."
       ) : (
-        <SimulationResultPlot
-          containerRef={panelRef}
-          result={simulationResults}
-        />
+        <SimulationResultPlot result={simulationResults} />
       )}
     </div>
   );

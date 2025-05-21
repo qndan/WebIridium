@@ -14,17 +14,45 @@ export interface TimeCourseParameters {
   numberOfPoints: number;
 }
 
+export interface GraphSettings {
+  backgroundColor: string;
+  drawingAreaColor: string;
+
+  includeTitle: boolean;
+  title: string;
+
+  includeBorder: boolean;
+  borderColor: string;
+  borderThickness: number;
+
+  margin: number;
+}
+
 // Atoms
 
 export const editorContentAtom = atom(defaultAntimonyModel);
 export const isSimulatingAtom = atom(false);
 export const simulationResultAtom = atom<SimResult | null>(null);
 
-export const timeCourseParametersAtom = atom({
+export const timeCourseParametersAtom = atom<TimeCourseParameters>({
   startTime: 0,
   endTime: 20,
   numberOfPoints: 200,
-} as TimeCourseParameters);
+});
+
+export const graphSettingsAtom = atom<GraphSettings>({
+  backgroundColor: "white",
+  drawingAreaColor: "Lavender",
+
+  includeTitle: true,
+  title: "Transition of substances in chemical reaction",
+
+  includeBorder: true,
+  borderColor: "black",
+  borderThickness: 0.5,
+
+  margin: 70,
+});
 
 /**
  * List of all atoms for the workspace, meant to be used with <ScopeProvider> from "jotai-scope"
@@ -35,4 +63,5 @@ export const allWorkspaceAtoms = [
   isSimulatingAtom,
   simulationResultAtom,
   timeCourseParametersAtom,
+  graphSettingsAtom,
 ];

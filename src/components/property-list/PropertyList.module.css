@@ -19,10 +19,11 @@
 }
 
 .property-name {
+  text-align: end;
   font-size: var(--font-size-1);
   width: 40%;
   padding: var(--spacing-2);
-  padding-inline-end: var(--spacing-4);
+  padding-inline-end: var(--spacing-5);
 }
 
 .property-input {
