@@ -13,7 +13,7 @@ import {
 
 export type SimulationResult =
   | { type: "success" }
-  | { type: "failure", message: string }
+  | { type: "failure"; message: string };
 
 /**
  * Hook for simulation capabilities. Handles all the required state
@@ -43,7 +43,10 @@ export const useSimulate = () => {
         return { type: "success" };
       } catch (err) {
         // TODO: implement error handling
-        return { type: "failure", message: "Unexpected error while simulating." };
+        return {
+          type: "failure",
+          message: "Unexpected error while simulating.",
+        };
       } finally {
         setIsSimulating(false);
       }
