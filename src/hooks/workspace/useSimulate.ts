@@ -5,11 +5,13 @@ import {
   editorContentAtom,
   isSimulatingAtom,
   simulationResultAtom,
+  timeCourseParametersAtom,
 } from "@/stores/workspace";
 
 const useSimulate = () => {
   const editorContent = useAtomValue(editorContentAtom);
   const setSimulationResult = useSetAtom(simulationResultAtom);
+  const timeCourseParameters = useAtomValue(timeCourseParametersAtom);
   const [isSimulating, setIsSimulating] = useAtom(isSimulatingAtom);
 
   const simulateTimeCourseCallback = async (abortSignal?: AbortSignal) => {
@@ -17,7 +19,11 @@ const useSimulate = () => {
       setIsSimulating(true);
 
       try {
-        const result = await simulateTimeCourse(editorContent, abortSignal);
+        const result = await simulateTimeCourse(
+          editorContent,
+          timeCourseParameters,
+          abortSignal,
+        );
         setSimulationResult(result);
       } catch (err) {
         // TODO: implement error handling

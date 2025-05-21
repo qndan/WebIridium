@@ -67,7 +67,7 @@ export class WorkerPool {
 
   queueTask(
     type: string,
-    payload: string,
+    payload: unknown,
     abortSignal?: AbortSignal,
   ): Promise<unknown> {
     const id = this.#idCounter++;

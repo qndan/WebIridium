@@ -5,25 +5,58 @@ export interface NumericPropertyProps {
   name: string;
   value: number;
   onChange: (newValue: number) => void;
+  /** checks for if the value the user is inputted is correct */
+  validator?: (value: number) => void;
 }
 
-const NumericProperty = ({ name, value, onChange }: NumericPropertyProps) => {
-  const [workingValue, setWorkingValue] = useState(value);
-  const lastValueRef = useRef(value);
+const NumericProperty = ({
+  name,
+  value,
+  onChange,
+  validator,
+}: NumericPropertyProps) => {
+  // user has a working value, once they end the input, check if its a valid number
+  // restore to original value if not
+  const [workingValue, setWorkingValue] = useState(value.toString());
+  const lastValueRef = useRef(value.toString());
 
   useEffect(() => {
-    lastValueRef.current = value;
-  }, [lastValueRef, value]);
+    setWorkingValue(value.toString());
+  }, [value]);
 
-  const handleChange = (e: React.ChangeEvent) => {
-    setWorkingValue(e);
+  const handleFocus = () => {
+    lastValueRef.current = workingValue;
+  };
+
+  const handleWorkingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWorkingValue(e.target.value);
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const numericValue = +value;
+    if (
+      !Number.isNaN(numericValue) &&
+      (!validator || validator(numericValue))
+    ) {
+      onChange(numericValue);
+    } else {
+      setWorkingValue(lastValueRef.current);
+    }
   };
 
   return (
     <div className={styles.property}>
-      <label>
+      <label className={styles.propertyLabel}>
         <span className={styles.propertyName}>{name}</span>
-        <input type="number" value={workingValue} onChange={handleChange} />
+        <input
+          className={styles.propertyInput}
+          type="number"
+          onFocus={handleFocus}
+          value={workingValue}
+          onChange={handleWorkingChange}
+          onBlur={handleBlur}
+        />
       </label>
     </div>
   );

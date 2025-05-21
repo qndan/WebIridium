@@ -22,6 +22,12 @@
   --secondary-border: #383940;
   --secondary-solid-border: 1px solid var(--secondary-border);
 
+  --input-background: #393a3b;
+  --input-foreground: var(--secondary-foreground);
+  --input-border: #61646b;
+  --input-solid-border: 1px solid var(--input-border);
+  --input-solid-border-focused: 2px solid var(--primary-accent);
+
   /* Sizing */
   --size-1: 12px;
   --size-2: 16px;
@@ -29,11 +35,15 @@
   --size-4: 48px;
   --size-6: 64px;
 
+  --font-size-1: 0.85rem;
+  --font-size-2: 1rem;
+  --font-size-3: 1.1rem;
+
   --spacing-1: 2px;
   --spacing-2: 3px;
   --spacing-3: 6px;
   --spacing-4: 8px;
-  --spacing-5: 14px;
+  --spacing-5: 12px;
   --spacing-panel: 10px;
 
   --border-radius: 3px;

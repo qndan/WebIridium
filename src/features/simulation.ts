@@ -1,4 +1,5 @@
 import type { SimResult } from "@/third_party/copasi";
+import type { TimeCourseParameters } from "@/stores/workspace.tsx";
 import { WorkerPool } from "./workerPool.ts";
 import { createWorker } from "./workers.ts";
 
@@ -8,11 +9,15 @@ const simulationWorkerPool = new WorkerPool(() => createWorker("simulation"), {
 
 export const simulateTimeCourse = async (
   antimonyCode: string,
+  parameters: TimeCourseParameters,
   abortSignal?: AbortSignal,
 ): Promise<SimResult> => {
   const result = await simulationWorkerPool.queueTask(
     "timeCourse",
-    antimonyCode,
+    {
+      antimonyCode,
+      parameters,
+    } as TimeCourseAction["payload"],
     abortSignal,
   );
   return (result as TimeCourseResult).data;
@@ -24,7 +29,10 @@ export const simulateTimeCourse = async (
 export type TimeCourseAction = {
   type: "timeCourse";
   id: number;
-  payload: string;
+  payload: {
+    antimonyCode: string;
+    parameters: TimeCourseParameters;
+  };
 };
 
 export type TimeCourseResult = {

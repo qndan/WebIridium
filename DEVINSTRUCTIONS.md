@@ -1,8 +1,9 @@
-# general stuff
+# general
 
 ## testing
 
 Run `npm run test` to run the test suite. We use Vitest + React Testing Library for tests.
+Try to add tests for every change you make, as much as is reasonable.
 
 ### resources for testing
 
@@ -29,7 +30,7 @@ Avoid commenting obvious stuff.
 ## third-party stuff
 
 `libantimony` and `copasijs` have been vendored in the `public/` directory.
-They should be used by interfacing with the `services/simulationService.ts` module.
+They should be used by interfacing with the `features/simulation.ts` module.
 These dependencies are handled by the `public/simulationWorker.ts` worker.
 
 ## workers

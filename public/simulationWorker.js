@@ -28,17 +28,23 @@ self.onmessage = async (e) => {
   const action = e.data;
   switch (action.type) {
     case "timeCourse":
-      const sbmlConversion = antimony.convertAntimonyToSBML(action.payload);
+      const { antimonyCode, parameters } = action.payload;
+      const sbmlConversion = antimony.convertAntimonyToSBML(antimonyCode);
       // TODO: notify user about these warnings
       if (sbmlConversion.getWarnings()) {
         console.warn(sbmlConversion.getWarnings());
       }
-      if (!sbmlConversion.isSuccess())
+      if (!sbmlConversion.isSuccess()) {
         throw new Error(sbmlConversion.getResult());
+      }
 
       copasi.loadModel(sbmlConversion.getResult());
 
-      const result = copasi.simulateEx(0, 20, 200);
+      const result = copasi.simulateEx(
+        parameters.startTime,
+        parameters.endTime,
+        parameters.numberOfPoints,
+      );
       self.postMessage({
         type: "timeCourse",
         id: action.id,

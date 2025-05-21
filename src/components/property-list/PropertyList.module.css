@@ -1,2 +1,39 @@
 .property-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  padding: var(--spacing-1);
+}
+
+.property {
+  display: block;
+  flex-direction: row;
+  margin: 0;
+}
+
+.property-label {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+}
+
+.property-name {
+  font-size: var(--font-size-1);
+  width: 40%;
+  padding: var(--spacing-2);
+  padding-inline-end: var(--spacing-4);
+}
+
+.property-input {
+  flex-grow: 1;
+  padding: var(--spacing-2);
+  border: var(--input-solid-border);
+  background-color: var(--input-background);
+  border-radius: var(--border-radius);
+  transition-duration: var(--transition-fast);
+}
+
+.property-input:focus {
+  outline: var(--input-solid-border-focused);
 }
