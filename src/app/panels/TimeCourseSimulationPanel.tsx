@@ -4,8 +4,8 @@ import { useAtom } from "jotai";
 import styles from "./TimeCourseSimulationPanel.module.css";
 import Button from "@/components/Button";
 import PlayIcon from "@/icons/PlayIcon";
-import Accordion from "@/components/accordion/Accordion";
-import AccordionItem from "@/components/accordion/AccordionItem";
+import PropertyAccordion from "@/components/property-accordion/PropertyAccordion";
+import PropertyAccordionItem from "@/components/property-accordion/PropertyAccordionItem";
 import PropertyList from "@/components/property-list/PropertyList";
 import NumericProperty from "@/components/property-list/NumericProperty";
 import {
@@ -64,8 +64,8 @@ export const TimeCourseSimulationPanel = () => {
         Simulate
       </Button>
 
-      <Accordion>
-        <AccordionItem title="Simulation Parameters">
+      <PropertyAccordion defaultValue={["sim-params"]}>
+        <PropertyAccordionItem title="Simulation Parameters" value="sim-params">
           <PropertyList>
             <NumericProperty
               name="Start Time"
@@ -94,8 +94,8 @@ export const TimeCourseSimulationPanel = () => {
               }
             />
           </PropertyList>
-        </AccordionItem>
-      </Accordion>
+        </PropertyAccordionItem>
+      </PropertyAccordion>
     </div>
   );
 };

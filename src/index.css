@@ -22,9 +22,9 @@
   --secondary-border: #43444d;
   --secondary-solid-border: 1px solid var(--secondary-border);
 
-  --input-background: #393a3b;
+  --input-background: #1f2021;
   --input-foreground: var(--secondary-foreground);
-  --input-border: #61646b;
+  --input-border: #494a4c;
   --input-solid-border: 1px solid var(--input-border);
   --input-solid-border-focused: 2px solid var(--primary-accent);
 
