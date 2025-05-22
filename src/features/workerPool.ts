@@ -47,22 +47,22 @@ type WorkerInfo = {
  * used by this worker pool should look like.
  */
 export class WorkerPool {
+  readonly maxWorkers: number;
+
   #createWorker: () => Worker;
   #workers: WorkerInfo[];
   #tasks: Task[];
   #idCounter: number = 0;
 
-  readonly maxWorkers: number;
-
   constructor(
     createWorker: () => Worker,
     { maxWorkers = 3 }: WorkerPoolOptions = {},
   ) {
+    this.maxWorkers = maxWorkers;
+
     this.#createWorker = createWorker;
     this.#workers = [];
     this.#tasks = [];
-
-    this.maxWorkers = maxWorkers;
   }
 
   queueTask(

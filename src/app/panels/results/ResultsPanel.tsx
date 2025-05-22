@@ -7,14 +7,15 @@ import SimulationResultPlot from "./SimulationResultPlot";
 export const ResultsPanel = () => {
   const panelRef = useRef<HTMLDivElement>(null);
   const simulationResults = useAtomValue(simulationResultAtom);
+
   return (
     <div className={styles.resultsPanel} ref={panelRef}>
       {!simulationResults ? (
         "nothing yet..."
       ) : (
         <SimulationResultPlot
-          containerRef={panelRef}
           result={simulationResults}
+          containerRef={panelRef}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, type RefObject, useLayoutEffect } from "react";
+import { useState, type RefObject, useLayoutEffect } from "react";
 import { useAtomValue } from "jotai";
 import type { SimResult } from "@/third_party/copasi";
 import { graphSettingsAtom } from "@/stores/workspace";
@@ -19,6 +19,7 @@ const palette = [
 ];
 
 export interface SimulationResultsPlotProps {
+  result: SimResult;
   /** Used to size the plot */
   containerRef: RefObject<HTMLElement | null>;
   /**
@@ -29,14 +30,13 @@ export interface SimulationResultsPlotProps {
   containerPercentWidth?: number;
   /** Number from [0-1] representing how much height of the container it takes up. */
   containerPercentHeight?: number;
-  result: SimResult;
 }
 
 const SimulationResultPlot = ({
+  result,
   containerRef,
   containerPercentWidth = 1,
   containerPercentHeight = 0.6,
-  result,
 }: SimulationResultsPlotProps) => {
   const {
     backgroundColor,
@@ -77,7 +77,7 @@ const SimulationResultPlot = ({
     observer.observe(containerRef.current);
 
     return () => observer.disconnect();
-  }, [containerRef]);
+  }, [containerRef, width, height, containerPercentWidth, containerPercentHeight]);
 
   const plotData = [];
   const timeColumn = result.columns[0];

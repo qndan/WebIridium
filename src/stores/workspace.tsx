@@ -1,5 +1,5 @@
 /**
- * manages stuff about the current workspace. stuff like:
+ * manages state of the current workspace. stuff like:
  *  - editor content
  *  - simulation stuff
  */
