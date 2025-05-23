@@ -23,7 +23,7 @@ type Task = {
   type: Result["type"];
   payload: unknown;
   /** Resolves the promise for the task. */
-  resolve: (res: Result) => void;
+  resolve: (res: unknown) => void;
   reject: (reason: unknown) => void;
   /** Worker info of worker currently working on this task. */
   workerInfo?: WorkerInfo;
@@ -87,14 +87,17 @@ export class WorkerPool {
         abortSignal.onabort = () => {
           this.#terminateTask(task);
         };
+
+        if (abortSignal.aborted) {
+          this.#terminateTask(task);
+          return;
+        }
       }
 
       const workerInfo = this.#getAvailableWorker();
       if (workerInfo) {
         this.#delegateTask(workerInfo, task);
       }
-
-      return id;
     });
   }
 
@@ -115,7 +118,7 @@ export class WorkerPool {
   }
 
   #terminateTask(task: Task) {
-    if (task.state === "working") {
+    if (task.state === "waiting" || task.state === "working") {
       const index = this.#tasks.indexOf(task);
       this.#tasks.splice(index, 1);
 
@@ -129,7 +132,7 @@ export class WorkerPool {
     const worker = this.#workers.find((w) => w.state === "idle");
     if (worker) {
       return worker;
-    } else if (this.#workers.length > this.maxWorkers) {
+    } else if (this.#workers.length >= this.maxWorkers) {
       return null;
     } else {
       const newWorker = this.#createWorker();
@@ -151,7 +154,7 @@ export class WorkerPool {
         this.#tasks.splice(taskIndex, 1);
         task.state = "done";
         task.workerInfo = undefined;
-        task.resolve(e.data);
+        task.resolve(e.data.data);
       }
 
       const availableTask = this.#tasks.find((t) => t.state === "waiting");

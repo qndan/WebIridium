@@ -25,7 +25,13 @@ export default defineConfig({
     environment: "jsdom",
     coverage: {
       include: ["src"],
-      exclude: ["**/__mocks__/**", "src/icons/", "src/third_party/"],
+      exclude: [
+        "**/__mocks__/**",
+        "src/icons/",
+        "src/assets",
+        "src/testing-utils",
+        "src/third-party/",
+      ],
     },
   },
 });

@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import type { SimResult } from "@/third_party/copasi";
+import type { SimResult } from "@/third-party/copasi";
 import type { TimeCourseParameters } from "@/stores/workspace.tsx";
 import { WorkerPool } from "./workerPool.ts";
 import { createWorker } from "./workers.ts";
@@ -72,7 +72,7 @@ export const simulateTimeCourse = async (
     } satisfies TimeCourseAction["payload"],
     abortSignal,
   );
-  return (result as TimeCourseResult).data;
+  return result as TimeCourseResult["data"];
 };
 
 //// Implementation:

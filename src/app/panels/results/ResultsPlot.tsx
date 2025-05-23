@@ -1,6 +1,6 @@
 import { useState, type RefObject, useLayoutEffect } from "react";
 import { useAtomValue } from "jotai";
-import type { SimResult } from "@/third_party/copasi";
+import type { SimResult } from "@/third-party/copasi";
 import {
   graphSettingsAtom,
   timeCourseParametersAtom,

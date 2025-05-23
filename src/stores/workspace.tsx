@@ -6,7 +6,7 @@
 
 import { atom } from "jotai";
 import defaultAntimonyModel from "/models/default.ant?raw";
-import type { SimResult } from "@/third_party/copasi";
+import type { SimResult } from "@/third-party/copasi";
 
 export interface TimeCourseParameters {
   startTime: number;
