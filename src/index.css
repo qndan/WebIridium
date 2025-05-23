@@ -29,10 +29,11 @@
   --input-solid-border-focused: 2px solid var(--primary-accent);
 
   /* Sizing */
-  --size-1: 12px;
+  --size-1: 8px;
   --size-2: 16px;
-  --size-3: 32px;
-  --size-4: 48px;
+  --size-3: 24px;
+  --size-4: 32px;
+  --size-5: 48px;
   --size-6: 64px;
 
   --font-size-1: 0.85rem;

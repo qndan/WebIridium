@@ -28,11 +28,18 @@
 
 .property-input {
   flex-grow: 1;
+  width: 0;
   padding: var(--spacing-2);
   background-color: var(--input-background);
   border: var(--input-solid-border);
   border-radius: var(--border-radius);
   transition-duration: var(--transition-fast);
+}
+
+/* used for stuff like slider where you this is the secondary form of input */
+.property-input.secondary {
+  flex-grow: 0.25;
+  margin-inline-end: var(--spacing-4);
 }
 
 .property-input:focus {
@@ -64,4 +71,41 @@
   display: flex;
   padding: 0;
   margin: 0;
+}
+
+.slider-root {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  position: relative;
+  user-select: none;
+  touch-action: none;
+  height: 15px;
+}
+
+.slider-track {
+  position: relative;
+  background-color: var(--input-background);
+  border: var(--input-solid-border);
+  border-radius: 9999px;
+  height: var(--size-1);
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.slider-range {
+  position: absolute;
+  background-color: var(--primary-accent);
+  border-radius: 9999px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.slider-thumb {
+  display: block;
+  width: var(--size-2);
+  height: var(--size-2);
+  background-color: var(--primary-accent);
+  border-radius: 10px;
+  cursor: pointer;
 }
