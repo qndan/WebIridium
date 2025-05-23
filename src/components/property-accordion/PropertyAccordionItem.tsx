@@ -1,12 +1,10 @@
 import { Accordion as RadixAccordion } from "radix-ui";
-import clsx from "clsx";
-import { useState } from "react";
 import styles from "./PropertyAccordion.module.css";
 import ChevronDownIcon from "@/icons/ChevronDownIcon";
 
 export interface AccordionItemProps {
   title: React.ReactNode;
-  value: string,
+  value: string;
   children?: React.ReactNode;
 }
 

@@ -1,7 +1,7 @@
 import PanelLayout from "@/components/PanelLayout";
 import TimeCourseSimulationPanel from "./panels/TimeCourseSimulationPanel";
 import AntimonyEditorPanel from "./panels/AntimonyEditorPanel";
-import ResultsPanel from "./panels/results/ResultsPanel";
+import PlotResultsPanel from "./panels/results/PlotResultsPanel";
 
 const App = () => {
   return (
@@ -9,7 +9,7 @@ const App = () => {
       <PanelLayout>
         <TimeCourseSimulationPanel />
         <AntimonyEditorPanel />
-        <ResultsPanel />
+        <PlotResultsPanel />
       </PanelLayout>
     </div>
   );

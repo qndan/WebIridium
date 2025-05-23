@@ -1,6 +1,7 @@
-.collapsed .item-title {
-  border-bottom-right-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
 }
 
 .item-trigger {
@@ -47,13 +48,14 @@
   border-top-left-radius: 0;
   padding: var(--spacing-3);
   overflow: hidden;
+  height: auto;
 
   &[data-state="open"] {
-    animation: fold-open var(--transition-fast) ease forwards;
+    animation: fold-open var(--transition-fast) ease;
   }
 
   &[data-state="closed"] {
-    animation: fold-close var(--transition-fast) ease forwards;
+    animation: fold-close var(--transition-fast) ease;
   }
 }
 

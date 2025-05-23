@@ -14,6 +14,7 @@
 .property-label {
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin: 0;
   padding: 0;
 }
@@ -22,19 +23,45 @@
   text-align: end;
   font-size: var(--font-size-1);
   width: 40%;
-  padding: var(--spacing-2);
   padding-inline-end: var(--spacing-5);
 }
 
 .property-input {
   flex-grow: 1;
   padding: var(--spacing-2);
-  border: var(--input-solid-border);
   background-color: var(--input-background);
+  border: var(--input-solid-border);
   border-radius: var(--border-radius);
   transition-duration: var(--transition-fast);
 }
 
 .property-input:focus {
   outline: var(--input-solid-border-focused);
+}
+
+.checkbox-root {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  padding: 0;
+  height: 20px;
+  width: 20px;
+  background-color: var(--input-background);
+  border: var(--input-solid-border);
+  border-radius: var(--border-radius);
+  transition-duration: var(--transition-fast);
+  cursor: pointer;
+
+  &[data-state="checked"] {
+    color: var(--primary-foreground);
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
+  }
+}
+
+.checkbox-indicator {
+  pointer-events: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
 }

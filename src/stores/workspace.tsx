@@ -25,6 +25,14 @@ export interface GraphSettings {
   borderColor: string;
   borderThickness: number;
 
+  isAutoscaledX: boolean;
+  minX: number;
+  maxX: number;
+
+  isAutoscaledY: boolean;
+  minY: number;
+  maxY: number;
+
   margin: number;
 }
 
@@ -50,6 +58,14 @@ export const graphSettingsAtom = atom<GraphSettings>({
   includeBorder: true,
   borderColor: "black",
   borderThickness: 0.5,
+
+  isAutoscaledX: true,
+  minX: 0,
+  maxX: 10,
+
+  isAutoscaledY: true,
+  minY: 0,
+  maxY: 10,
 
   margin: 70,
 });
