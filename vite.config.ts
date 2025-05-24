@@ -7,7 +7,7 @@ import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/web-iridium-2.0",
+  base: "/WebIridium",
   plugins: [react()],
   resolve: {
     alias: {
