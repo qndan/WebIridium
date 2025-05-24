@@ -1,9 +1,4 @@
-importScripts(
-  "libantimony.js",
-  "antimony_wrap.js",
-  "copasijs.js",
-  "copasi.js",
-);
+importScripts("libantimony.js", "antimony_wrap.js", "copasijs.js", "copasi.js");
 
 let copasi = null;
 let antimony = null;

@@ -3,7 +3,10 @@
 ## testing
 
 Run `npm run test` to run the test suite. We use Vitest + React Testing Library for tests.
+
 Try to add tests for every change you make, as much as is reasonable.
+
+If you would like to test how the site would work when deployed on GitHub Pages, do `npm run build` then `npm run preview` which should simulate the final result pretty well.
 
 ### resources for testing
 
@@ -14,9 +17,9 @@ Try to add tests for every change you make, as much as is reasonable.
 
 ## code style
 
-Run `npm run format` to reformat your code.
-Run `npm run lint` to run the linter. Use `npm run lint:fix` to accept any automatic fixes it offers.
-Avoid commenting obvious stuff.
+- Run `npm run format` to reformat your code.
+- Run `npm run lint` to run the linter. Use `npm run lint:fix` to accept any automatic fixes it offers.
+- Avoid commenting obvious stuff.
 
 # specific stuff
 
@@ -30,8 +33,7 @@ Avoid commenting obvious stuff.
 ## third-party stuff
 
 `libantimony` and `copasijs` have been vendored in the `public/` directory.
-They should be used by interfacing with the `features/simulation.ts` module.
-These dependencies are handled by the `public/simulationWorker.ts` worker.
+They should be used by interfacing with the `features/simulation.ts` module which interacts with the `public/simulationWorker.js` worker to run these libraries.
 
 ## workers
 

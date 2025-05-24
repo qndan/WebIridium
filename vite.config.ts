@@ -21,6 +21,11 @@ export default defineConfig({
   },
   assetsInclude: ["**/*.ant"],
 
+  build: {
+    // for whatever reason, vite moves stuff in our public/ directory to assets/ only on build. This messes up libantimony and libcopasi since they can't be imported at their regular path, so we have to disable this feature.
+    assetsDir: "",
+  },
+
   test: {
     setupFiles: ["./src/vitest-setup.ts"],
     environment: "jsdom",

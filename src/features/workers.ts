@@ -8,6 +8,7 @@ export type WorkerType = "simulation";
 export const createWorker = (type: WorkerType): Worker => {
   switch (type) {
     case "simulation":
-      return new Worker(new URL("/simulationWorker.js", import.meta.url));
+      console.log(import.meta.env.BASE_URL + "/simulationWorker.js");
+      return new Worker(import.meta.env.BASE_URL + "/simulationWorker.js");
   }
 };
