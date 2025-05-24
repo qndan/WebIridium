@@ -29,29 +29,32 @@ const NumericSliderProperty = ({
 
   return (
     <div className={styles.property}>
-      <label className={styles.propertyLabel}>
-        <span className={styles.propertyName}>{name}</span>
-        <input
-          className={clsx([styles.propertyInput, styles.secondary])}
-          type="number"
-          value={value}
-          step={step}
-          onChange={handleChange}
-        />
-        <RadixSlider.Root
-          className={styles.sliderRoot}
-          value={[value]}
-          onValueChange={([newValue]) => onChange(newValue)}
-          min={min}
-          max={max}
-          step={step}
-        >
-          <RadixSlider.Track className={styles.sliderTrack}>
-            <RadixSlider.Range className={styles.sliderRange} />
-          </RadixSlider.Track>
-          <RadixSlider.Thumb className={styles.sliderThumb} />
-        </RadixSlider.Root>
+      <label htmlFor={name} className={styles.propertyName}>
+        {name}
       </label>
+
+      <input
+        id={name}
+        className={clsx([styles.propertyInput, styles.secondary])}
+        type="number"
+        value={value}
+        step={step}
+        onChange={handleChange}
+      />
+
+      <RadixSlider.Root
+        className={styles.sliderRoot}
+        value={[value]}
+        onValueChange={([newValue]) => onChange(newValue)}
+        min={min}
+        max={max}
+        step={step}
+      >
+        <RadixSlider.Track className={styles.sliderTrack}>
+          <RadixSlider.Range className={styles.sliderRange} />
+        </RadixSlider.Track>
+        <RadixSlider.Thumb className={styles.sliderThumb} />
+      </RadixSlider.Root>
     </div>
   );
 };

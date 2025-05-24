@@ -6,12 +6,6 @@
 }
 
 .property {
-  display: block;
-  flex-direction: row;
-  margin: 0;
-}
-
-.property-label {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -37,7 +31,7 @@
 }
 
 /* used for stuff like slider where you this is the secondary form of input */
-.property-input.secondary {
+.secondary {
   flex-grow: 0.25;
   margin-inline-end: var(--spacing-4);
 }
@@ -45,6 +39,8 @@
 .property-input:focus {
   outline: var(--input-solid-border-focused);
 }
+
+/* Checkbox */
 
 .checkbox-root {
   display: flex;
@@ -72,6 +68,8 @@
   padding: 0;
   margin: 0;
 }
+
+/* Slider */
 
 .slider-root {
   display: flex;
@@ -109,3 +107,79 @@
   border-radius: 10px;
   cursor: pointer;
 }
+
+/* Color Picker */
+
+.color-button {
+  cursor: pointer;
+  border: var(--input-solid-border);
+  align-self: stretch;
+  border-radius: var(--border-radius);
+  width: 0;
+}
+
+.color-popup {
+  background-color: var(--tertiary-background);
+  border: var(--tertiary-solid-border);
+  padding: var(--spacing-4);
+  margin: var(--spacing-3);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-1);
+
+  animation-duration: var(--transition-fast);
+  &[data-state="open"][data-side="top"] {
+    animation-name: slideDownAndFade;
+  }
+  &[data-state="open"][data-side="bottom"] {
+    animation-name: slideUpAndFade;
+  }
+}
+
+.color-popup :global(.react-colorful) {
+  height: 140px;
+}
+
+.color-popup :global(.react-colorful__saturation) {
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-4);
+}
+
+.color-popup :global(.react-colorful__hue) {
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  height: 12px;
+}
+
+.color-popup :global(.react-colorful__saturation-pointer) {
+  width: 20px;
+  height: 20px;
+}
+
+.color-popup :global(.react-colorful__hue-pointer) {
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes slideUpAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDownAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

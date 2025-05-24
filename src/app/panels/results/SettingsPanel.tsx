@@ -8,6 +8,7 @@ import NumericSliderProperty from "@/components/property-list/NumericSliderPrope
 import PropertyAccordion from "@/components/property-accordion/PropertyAccordion";
 import PropertyAccordionItem from "@/components/property-accordion/PropertyAccordionItem";
 import StringProperty from "@/components/property-list/StringProperty";
+import ColorProperty from "@/components/property-list/ColorProperty";
 
 // NOTE: Might be a good idea to have more atomic state updates.
 //       Right now every single component is updated when one property is updated.
@@ -94,6 +95,13 @@ const SettingsPanel = () => {
               value={graphSettings.includeBorder}
               onChange={changeHandlerFor("includeBorder")}
             />
+            {graphSettings.includeBorder && (
+              <ColorProperty
+                name="Border Color"
+                value={graphSettings.borderColor}
+                onChange={changeHandlerFor("borderColor")}
+              />
+            )}
             {graphSettings.includeBorder && (
               <NumericSliderProperty
                 name="Border Thickness"

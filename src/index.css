@@ -22,6 +22,11 @@
   --secondary-border: #43444d;
   --secondary-solid-border: 1px solid var(--secondary-border);
 
+  --tertiary-background: #38393b;
+  --tertiary-foreground: #ebeef0;
+  --tertiary-border: #56575c;
+  --tertiary-solid-border: 1px solid var(--tertiary-border);
+
   --input-background: #1f2021;
   --input-foreground: var(--secondary-foreground);
   --input-border: #494a4c;
@@ -53,6 +58,8 @@
 
   /* Misc. */
   --transition-fast: 0.1s;
+
+  --shadow-1: 0px 10px 25px -15px rgba(0,0,0,0.5);
 }
 
 *,

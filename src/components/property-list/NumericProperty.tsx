@@ -47,17 +47,19 @@ const NumericProperty = ({
 
   return (
     <div className={styles.property}>
-      <label className={styles.propertyLabel}>
-        <span className={styles.propertyName}>{name}</span>
-        <input
-          className={styles.propertyInput}
-          type="number"
-          onFocus={handleFocus}
-          value={workingValue}
-          onChange={handleWorkingChange}
-          onBlur={handleBlur}
-        />
+      <label htmlFor={name} className={styles.propertyName}>
+        {name}
       </label>
+
+      <input
+        id={name}
+        className={styles.propertyInput}
+        type="number"
+        onFocus={handleFocus}
+        value={workingValue}
+        onChange={handleWorkingChange}
+        onBlur={handleBlur}
+      />
     </div>
   );
 };

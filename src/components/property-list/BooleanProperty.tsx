@@ -11,18 +11,20 @@ export interface BooleanPropertyProps {
 const BooleanProperty = ({ name, value, onChange }: BooleanPropertyProps) => {
   return (
     <div className={styles.property}>
-      <label className={styles.propertyLabel}>
-        <span className={styles.propertyName}>{name}</span>
-        <RadixCheckbox.Root
-          className={styles.checkboxRoot}
-          checked={value}
-          onCheckedChange={onChange}
-        >
-          <RadixCheckbox.Indicator className={styles.checkboxIndicator}>
-            {value && <CheckIcon aria-hidden />}
-          </RadixCheckbox.Indicator>
-        </RadixCheckbox.Root>
+      <label htmlFor={name} className={styles.propertyName}>
+        {name}
       </label>
+
+      <RadixCheckbox.Root
+        id={name}
+        className={styles.checkboxRoot}
+        checked={value}
+        onCheckedChange={onChange}
+      >
+        <RadixCheckbox.Indicator className={styles.checkboxIndicator}>
+          {value && <CheckIcon aria-hidden />}
+        </RadixCheckbox.Indicator>
+      </RadixCheckbox.Root>
     </div>
   );
 };

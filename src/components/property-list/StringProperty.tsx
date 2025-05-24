@@ -9,14 +9,16 @@ export interface StringPropertyProps {
 const StringProperty = ({ name, value, onChange }: StringPropertyProps) => {
   return (
     <div className={styles.property}>
-      <label className={styles.propertyLabel}>
-        <span className={styles.propertyName}>{name}</span>
-        <input
-          className={styles.propertyInput}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-        />
+      <label htmlFor={name} className={styles.propertyName}>
+        {name}
       </label>
+
+      <input
+        id={name}
+        className={styles.propertyInput}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
     </div>
   );
 };
