@@ -112,6 +112,17 @@ const SettingsPanel = () => {
                 step={0.5}
               />
             )}
+
+            <ColorProperty
+              name="Background Color"
+              value={graphSettings.backgroundColor}
+              onChange={changeHandlerFor("backgroundColor")}
+            />
+            <ColorProperty
+              name="Drawing Area Color"
+              value={graphSettings.drawingAreaColor}
+              onChange={changeHandlerFor("drawingAreaColor")}
+            />
           </PropertyList>
         </PropertyAccordionItem>
       </PropertyAccordion>

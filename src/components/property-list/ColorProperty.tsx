@@ -20,7 +20,11 @@ const ColorProperty = ({ name, value, onChange }: ColorPropertyProps) => {
 
       <RadixPopover.Root>
         <RadixPopover.Trigger asChild>
-          <button className={clsx(styles.colorButton, styles.secondary)} style={{backgroundColor: value}} aria-label="Open color picker" />
+          <button
+            className={clsx(styles.colorButton, styles.secondary)}
+            style={{ backgroundColor: value }}
+            aria-label="Open color picker"
+          />
         </RadixPopover.Trigger>
         <RadixPopover.Portal>
           <RadixPopover.Content className={styles.colorPopup}>

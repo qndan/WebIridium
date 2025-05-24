@@ -56,7 +56,7 @@ export const graphSettingsAtom = atom<GraphSettings>({
   title: "Transition of substances in chemical reaction",
 
   includeBorder: true,
-  borderColor: "black",
+  borderColor: "#000000",
   borderThickness: 0.5,
 
   isAutoscaledX: true,
