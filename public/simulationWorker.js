@@ -1,8 +1,8 @@
 importScripts(
-  "/libantimony.js",
-  "/antimony_wrap.js",
-  "/copasijs.js",
-  "/copasi.js",
+  "libantimony.js",
+  "antimony_wrap.js",
+  "copasijs.js",
+  "copasi.js",
 );
 
 let copasi = null;
