@@ -58,11 +58,9 @@ it("should terminate tasks and worker", async () => {
 it("should not run terminated tasks", async () => {
   setWorkerResponseDelay(5);
 
-  const pool = new WorkerPool(createCountingWorker,
-    {
-      maxWorkers: 1,
-    },
-  );
+  const pool = new WorkerPool(createCountingWorker, {
+    maxWorkers: 1,
+  });
 
   void pool.queueTask("count", 0);
 
