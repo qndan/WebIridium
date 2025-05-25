@@ -77,6 +77,17 @@ const SettingsPanel = () => {
 
         <PropertyAccordionItem title="Graph" value="graph">
           <PropertyList>
+            <ColorProperty
+              name="Background Color"
+              value={graphSettings.backgroundColor}
+              onChange={changeHandlerFor("backgroundColor")}
+            />
+            <ColorProperty
+              name="Drawing Area Color"
+              value={graphSettings.drawingAreaColor}
+              onChange={changeHandlerFor("drawingAreaColor")}
+            />
+
             <BooleanProperty
               name="Include Title"
               value={graphSettings.includeTitle}
@@ -112,17 +123,6 @@ const SettingsPanel = () => {
                 step={0.5}
               />
             )}
-
-            <ColorProperty
-              name="Background Color"
-              value={graphSettings.backgroundColor}
-              onChange={changeHandlerFor("backgroundColor")}
-            />
-            <ColorProperty
-              name="Drawing Area Color"
-              value={graphSettings.drawingAreaColor}
-              onChange={changeHandlerFor("drawingAreaColor")}
-            />
           </PropertyList>
         </PropertyAccordionItem>
       </PropertyAccordion>

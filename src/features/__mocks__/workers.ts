@@ -4,9 +4,10 @@ import type { WorkerType } from "../workers.ts";
 import { MockWorker } from "@/testing-utils/mockWorker.ts";
 
 export const createWorker = (type: WorkerType) => {
+  const worker = new MockWorker();
+
   switch (type) {
     case "simulation": {
-      const worker = new MockWorker();
       worker.port.addEventListener("message", (e) => {
         const action = (e as MessageEvent<Action>).data;
         switch (action.type) {
@@ -30,4 +31,6 @@ export const createWorker = (type: WorkerType) => {
       break;
     }
   }
+
+  return worker;
 };

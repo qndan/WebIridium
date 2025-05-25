@@ -2,7 +2,7 @@
 
 ## testing
 
-Run `npm run test` to run the test suite. We use Vitest + React Testing Library for tests.
+Run `npm run test` to run the test suite. Run `npm run coverage` to generate a coverage report which you can view in `/coverage/index.html`. We use Vitest + React Testing Library for tests.
 
 Try to add tests for every change you make, as much as is reasonable.
 

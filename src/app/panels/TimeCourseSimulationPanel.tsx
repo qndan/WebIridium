@@ -33,7 +33,7 @@ export const TimeCourseSimulationPanel = () => {
 
     abortSimulationRef.current = new AbortController();
 
-    void simulateTimeCourse(abortSimulationRef.current.signal);
+    simulateTimeCourse(abortSimulationRef.current.signal);
   };
 
   const handleCancelClick = () => {
