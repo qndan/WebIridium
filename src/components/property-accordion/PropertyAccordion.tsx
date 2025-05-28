@@ -7,7 +7,6 @@ export interface AccordionProps {
 }
 
 const Accordion = ({ defaultValue, children }: AccordionProps) => {
-  // return <div className={styles.accordion}>{children}</div>;
   return (
     <RadixAccordion.Root
       className={styles.accordion}

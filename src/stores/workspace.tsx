@@ -49,8 +49,8 @@ export const timeCourseParametersAtom = atom<TimeCourseParameters>({
 });
 
 export const graphSettingsAtom = atom<GraphSettings>({
-  backgroundColor: "white",
-  drawingAreaColor: "Lavender",
+  backgroundColor: "#ffffff",
+  drawingAreaColor: "#e1d5ed",
 
   includeTitle: true,
   title: "Transition of substances in chemical reaction",

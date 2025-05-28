@@ -1,8 +1,16 @@
-import { describe, it, expect, afterEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, afterEach, vi } from "vitest";
+import { screen } from "@testing-library/react";
+import { renderWrappedStores } from "@/testing-utils/render.tsx";
 import { userEvent } from "@testing-library/user-event";
 import TimeCourseSimulationPanel from "../TimeCourseSimulationPanel.tsx";
-import { resetWorkerResponseDelay, setWorkerResponseDelay } from "@/testing-utils/mockWorker.ts";
+import {
+  resetWorkerResponseDelay,
+  setWorkerResponseDelay,
+} from "@/testing-utils/mockWorker.ts";
+import PlotPanel from "../results/PlotPanel.tsx";
+
+vi.mock("@/features/workers.ts");
+vi.mock("@/app/panels/results/ResultsPlot.tsx");
 
 afterEach(() => {
   resetWorkerResponseDelay();
@@ -13,10 +21,23 @@ describe("simulation button", () => {
     // need to have some delay otherwise the button will instantly simulate and undisable itself
     setWorkerResponseDelay(100);
 
-    render(<TimeCourseSimulationPanel />);
+    renderWrappedStores(<TimeCourseSimulationPanel />);
 
     const button = screen.getByText("Simulate");
     await userEvent.click(button);
     expect(button).toBeDisabled();
+  });
+
+  it("should cause a plot to display in the plot panel", async () => {
+    renderWrappedStores(
+      <div>
+        <TimeCourseSimulationPanel />
+        <PlotPanel />
+      </div>,
+    );
+
+    const button = screen.getByText("Simulate");
+    await userEvent.click(button);
+    expect(screen.getByTestId("results-plot")).toBeInTheDocument();
   });
 });

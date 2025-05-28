@@ -113,6 +113,7 @@ const ResultsPlot = ({
 
   return (
     <Plot
+      data-testid="results-plot"
       data={plotData as unknown as Data[]}
       style={{ position: "relative" }}
       layout={{

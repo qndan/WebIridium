@@ -9,13 +9,14 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Colors */
+
+  --primary-accent: #0785d9;
+  --primary-accent-foreground: #e1e3e6;
+
   --primary-background: #101112;
   --primary-foreground: #f2f5f7;
   --primary-border: #212226;
   --primary-solid-border: 1px solid var(--primary-border);
-
-  --primary-accent: #0785d9;
-  --primary-accent-foreground: #e1e3e6;
 
   --secondary-background: #252729;
   --secondary-foreground: #dee1e3;
@@ -41,7 +42,7 @@
   --size-5: 48px;
   --size-6: 64px;
 
-  --font-size-1: 0.85rem;
+  --font-size-1: 0.9rem;
   --font-size-2: 1rem;
   --font-size-3: 1.1rem;
 
