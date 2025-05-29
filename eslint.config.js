@@ -72,11 +72,11 @@ export default tseslint.config(
           types: {
             "React.FC": {
               message:
-                "Do not use React.FC. Use explicit props typing instead: ({ prop }: Props) => JSX.Element",
+                "Use explicit props typing instead: ({ prop }: Props) => JSX.Element",
             },
             "React.FunctionComponent": {
               message:
-                "Do not use React.FunctionComponent. Use explicit props typing instead: ({ prop }: Props) => JSX.Element",
+                "Use explicit props typing instead: ({ prop }: Props) => JSX.Element",
             },
           },
         },

@@ -2,7 +2,7 @@ import { describe, it, expect, afterEach, vi } from "vitest";
 import { screen } from "@testing-library/react";
 import { renderWrappedStores } from "@/testing-utils/render.tsx";
 import { userEvent } from "@testing-library/user-event";
-import TimeCourseSimulationPanel from "../TimeCourseSimulationPanel.tsx";
+import TimeCoursePanel from "../simulation/TimeCoursePanel.tsx";
 import {
   resetWorkerResponseDelay,
   setWorkerResponseDelay,
@@ -21,7 +21,7 @@ describe("simulation button", () => {
     // need to have some delay otherwise the button will instantly simulate and undisable itself
     setWorkerResponseDelay(100);
 
-    renderWrappedStores(<TimeCourseSimulationPanel />);
+    renderWrappedStores(<TimeCoursePanel />);
 
     const button = screen.getByText("Simulate");
     await userEvent.click(button);
@@ -31,7 +31,7 @@ describe("simulation button", () => {
   it("should cause a plot to display in the plot panel", async () => {
     renderWrappedStores(
       <div>
-        <TimeCourseSimulationPanel />
+        <TimeCoursePanel />
         <PlotPanel />
       </div>,
     );

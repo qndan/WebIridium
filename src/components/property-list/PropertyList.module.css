@@ -6,6 +6,7 @@
 }
 
 .property {
+  container-type: inline-size;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -14,10 +15,15 @@
 }
 
 .property-name {
-  text-align: end;
+  text-align: start;
   font-size: var(--font-size-1);
-  width: 40%;
+  width: 60%;
   padding-inline-end: var(--spacing-5);
+
+  @container (width > 400px) {
+    text-align: end;
+    width: 40%;
+  }
 }
 
 .property-input {
@@ -37,6 +43,7 @@
 }
 
 .property-input:focus {
+  border: 1px solid var(--primary-accent);
   outline: var(--input-solid-border-focused);
 }
 
@@ -103,7 +110,7 @@
   display: block;
   width: var(--size-2);
   height: var(--size-2);
-  background-color: var(--primary-accent);
+  background-color: var(--primary-foreground);
   border-radius: 10px;
   cursor: pointer;
 }

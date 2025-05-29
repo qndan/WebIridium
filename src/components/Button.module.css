@@ -11,7 +11,7 @@
   border: none;
   margin: 0;
   padding: 0;
-  gap: var(--spacing-2);
+  gap: var(--spacing-1);
   height: var(--size-4);
 }
 

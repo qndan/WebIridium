@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useAtom } from "jotai";
 
-import styles from "./TimeCourseSimulationPanel.module.css";
+import styles from "./Simulation.module.css";
 import Button from "@/components/Button";
 import PlayIcon from "@/icons/PlayIcon";
 import PropertyAccordion from "@/components/property-accordion/PropertyAccordion";
@@ -53,7 +53,7 @@ export const TimeCourseSimulationPanel = () => {
   };
 
   return (
-    <div className={styles.timeCoursePanel}>
+    <div className={styles.simulationPanel}>
       <Button
         icon={<PlayIcon />}
         isLoading={isSimulating}

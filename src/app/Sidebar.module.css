@@ -1,0 +1,52 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  border: var(--primary-solid-border);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.trigger {
+  color: color-mix(in hsl, var(--primary-foreground) 50%, transparent);
+  position: relative;
+  background-color: transparent;
+  border: none;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  transition-duration: var(--transition-fast);
+
+  &:not([data-state="active"]):hover::before {
+    content: "";
+    background-color: color-mix(
+      in hsl,
+      var(--primary-foreground) 20%,
+      transparent
+    );
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 2px;
+  }
+
+  &[data-state="active"] {
+    color: var(--primary-foreground);
+  }
+
+  &[data-state="active"]::before {
+    content: "";
+    background-color: var(--primary-accent);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 2px;
+  }
+}
