@@ -50,7 +50,9 @@ export interface TimeCourseSimulationResult {
 
 export interface ParameterScanSimulationResult {
   type: "parameterScan";
+  parameter: string;
   scans: {
+    value: number;
     titles: SimResult["titles"];
     columns: SimResult["columns"];
   }[];

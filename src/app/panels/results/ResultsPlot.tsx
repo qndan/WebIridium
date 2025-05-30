@@ -122,7 +122,7 @@ const ResultsPlot = ({
         const timeColumn = scan.columns[0];
         for (let i = 1; i < scan.columns.length; colorIndex++, i++) {
           const column = scan.columns[i];
-          const title = scan.titles[i];
+          const title = `${scan.titles[i]} (${result.parameter}=${scan.value})`;
           plotData.push({
             x: timeColumn,
             y: column,

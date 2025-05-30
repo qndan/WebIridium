@@ -68,18 +68,20 @@ export const useSimulate = () => {
 
       try {
         const resultPromises = [];
-        for (let i = 0; i < parameterScanParameters.numberOfValues; i++) {
-          const percentage = i / parameterScanParameters.numberOfValues;
+        const scanValues = getParameterScanValues(
+          parameterScanParameters.min,
+          parameterScanParameters.max,
+          parameterScanParameters.numberOfValues,
+        );
+
+        for (const value of scanValues) {
           resultPromises.push(
             workspace.simulationManager.simulateTimeCourse(
               editorContent,
               {
                 ...timeCourseParameters,
                 varyingParameter: HARDCODED_CHANGE_LATER_parameterName,
-                varyingParameterValue:
-                  parameterScanParameters.min +
-                  percentage *
-                    (parameterScanParameters.max - parameterScanParameters.min),
+                varyingParameterValue: value,
               },
               abortSignal,
             ),
@@ -87,10 +89,19 @@ export const useSimulate = () => {
         }
 
         const results = await Promise.all(resultPromises);
+        const scans = [];
+        for (const [i, result] of results.entries()) {
+          scans.push({
+            value: scanValues[i],
+            titles: result.titles,
+            columns: result.columns,
+          });
+        }
 
         setSimulationResult({
           type: "parameterScan",
-          scans: results,
+          scans,
+          parameter: HARDCODED_CHANGE_LATER_parameterName,
         });
         return { type: "success" };
       } catch (err) {
@@ -110,6 +121,23 @@ export const useSimulate = () => {
     simulateTimeCourse,
     runParameterScan,
   };
+};
+
+/**
+ * @returns values of a parameter for parameter scan.
+ **/
+const getParameterScanValues = (
+  min: number,
+  max: number,
+  numberOfValues: number,
+): number[] => {
+  const list = [];
+  const range = max - min;
+  for (let i = 0; i < numberOfValues; i++) {
+    const percentage = i / numberOfValues;
+    list.push(min + percentage * range);
+  }
+  return list;
 };
 
 type TimeCourseAction = {
