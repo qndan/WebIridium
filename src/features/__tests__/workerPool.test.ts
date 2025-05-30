@@ -1,3 +1,6 @@
+// TODO: add tests for multiple workers, one abort signal
+//       and `internalState`
+
 import { afterEach, it, expect } from "vitest";
 import { WorkerPool, WorkerTermination } from "../workerPool";
 import {
@@ -17,19 +20,19 @@ afterEach(() => {
 
 it("should return result of queued task", async () => {
   const pool = new WorkerPool(createCountingWorker);
-  const result = await pool.queueTask("count", 0);
+  const result = await pool.queueTask("count", 0, null);
   expect(result).toBe(0);
 });
 
 it("should return result of multiple queued tasks", async () => {
   const pool = new WorkerPool(createCountingWorker);
   const results = Promise.all([
-    pool.queueTask("count", 0),
-    pool.queueTask("count", 0),
-    pool.queueTask("count", 0),
-    pool.queueTask("count", 0),
-    pool.queueTask("count", 0),
-    pool.queueTask("count", 0),
+    pool.queueTask("count", 0, null),
+    pool.queueTask("count", 0, null),
+    pool.queueTask("count", 0, null),
+    pool.queueTask("count", 0, null),
+    pool.queueTask("count", 0, null),
+    pool.queueTask("count", 0, null),
   ]);
 
   expect(await results).toEqual([0, 1, 2, 3, 4, 5]);
@@ -46,7 +49,7 @@ it("should terminate tasks and worker", async () => {
 
   const abortController = new AbortController();
   const expectPromise = expect(
-    pool.queueTask("count", 0, abortController.signal),
+    pool.queueTask("count", 0, null, abortController.signal),
   ).rejects.toThrowError(new WorkerTermination());
 
   abortController.abort();
@@ -62,16 +65,16 @@ it("should not run terminated tasks", async () => {
     maxWorkers: 1,
   });
 
-  void pool.queueTask("count", 0);
+  void pool.queueTask("count", 0, null);
 
   // This one should not run
   const abortController = new AbortController();
   const expectPromise = expect(
-    pool.queueTask("count", 0, abortController.signal),
+    pool.queueTask("count", 0, null, abortController.signal),
   ).rejects.toThrowError();
   abortController.abort();
 
-  expect(await pool.queueTask("count", 0)).toBe(1);
+  expect(await pool.queueTask("count", 0, null)).toBe(1);
   await expectPromise;
 });
 
@@ -81,7 +84,7 @@ it("should fail with worker termination when abort signal already aborted on tas
   abortController.abort();
 
   await expect(() =>
-    pool.queueTask("count", 0, abortController.signal),
+    pool.queueTask("count", 0, null, abortController.signal),
   ).rejects.toThrowError(new WorkerTermination());
 });
 
@@ -92,7 +95,7 @@ it(
     setWorkerResponseDelay(25, 500);
     const pool = new WorkerPool(createCountingWorker, { maxWorkers: 10 });
     const promises = Array.from({ length: 25 }).map((_) =>
-      pool.queueTask("count", 0),
+      pool.queueTask("count", 0, null),
     );
     const results = Promise.all(promises);
     const expected = Array.from({ length: 25 }).map((_, index) => index);
@@ -111,7 +114,7 @@ it(
     const promises: Promise<unknown>[] = [];
     for (let i = 0; i < 48; i++) {
       const abortController = i % 2 === 0 ? null : new AbortController();
-      promises.push(pool.queueTask("count", 0, abortController?.signal));
+      promises.push(pool.queueTask("count", 0, null, abortController?.signal));
       abortController?.abort();
     }
 

@@ -1,9 +1,9 @@
 import { useState, type RefObject, useLayoutEffect } from "react";
 import { useAtomValue } from "jotai";
-import type { SimResult } from "@/third-party/copasi";
 import {
   graphSettingsAtom,
   timeCourseParametersAtom,
+  type SimulationResult,
 } from "@/stores/workspace";
 import Plot from "react-plotly.js";
 import type { Data } from "plotly.js";
@@ -22,7 +22,7 @@ const palette = [
 ];
 
 export interface ResultsPlotProps {
-  result: SimResult;
+  result: SimulationResult;
   /** Used to size the plot */
   containerRef: RefObject<HTMLElement | null>;
   /** Number from [0-1) representing how much width of the container it takes up. */
@@ -92,23 +92,52 @@ const ResultsPlot = ({
   ]);
 
   const plotData = [];
-  const timeColumn = result.columns[0];
+
+  // TODO: do not update range whenever input changes, only when simulation is ran.
   const rangeX = isAutoscaledX
     ? [simulationParameters.startTime, simulationParameters.endTime]
     : [minX, maxX];
   const rangeY = isAutoscaledY ? undefined : [minY, maxY];
 
-  for (let i = 1; i < result.columns.length; i++) {
-    const column = result.columns[i];
-    const title = result.titles[i];
-    plotData.push({
-      x: timeColumn,
-      y: column,
-      type: "scatter",
-      mode: "lines+markers",
-      marker: { color: palette[i % palette.length] },
-      name: title,
-    });
+  switch (result.type) {
+    case "timeCourse": {
+      const timeColumn = result.columns[0];
+      for (let i = 1; i < result.columns.length; i++) {
+        const column = result.columns[i];
+        const title = result.titles[i];
+        plotData.push({
+          x: timeColumn,
+          y: column,
+          type: "scatter",
+          mode: "lines",
+          marker: { color: palette[i % palette.length] },
+          name: title,
+        });
+      }
+      break;
+    }
+    case "parameterScan": {
+      let colorIndex = 0;
+      for (const scan of result.scans) {
+        const timeColumn = scan.columns[0];
+        for (let i = 1; i < scan.columns.length; colorIndex++, i++) {
+          const column = scan.columns[i];
+          const title = scan.titles[i];
+          plotData.push({
+            x: timeColumn,
+            y: column,
+            type: "scatter",
+            mode: "lines",
+            marker: { color: palette[colorIndex % palette.length] },
+            line: {
+              width: 2, // TODO: add setting for this
+            },
+            name: title,
+          });
+        }
+      }
+      break;
+    }
   }
 
   return (

@@ -5,6 +5,13 @@ export type Action = {
   type: string;
   id: number;
   payload: unknown;
+
+  /**
+   * This value is synchronized with the actual worker. It is only sent to
+   * the worker when changed.
+   * For simulationWorker, "internalState" is the antimony code.
+   */
+  internalState: unknown;
 };
 
 export type Result = {
@@ -22,7 +29,7 @@ type Task = {
   state: "waiting" | "working" | "done" | "terminated";
   type: Result["type"];
   payload: unknown;
-  /** Resolves the promise for the task. */
+  internalState: unknown;
   resolve: (res: unknown) => void;
   reject: (reason: unknown) => void;
   /** Worker info of worker currently working on this task. */
@@ -32,6 +39,8 @@ type Task = {
 type WorkerInfo = {
   worker: Worker;
   state: "idle" | "busy" | "dead";
+  /** For tracking the internalState of the actual worker. */
+  internalState: unknown;
 };
 
 /**
@@ -68,6 +77,7 @@ export class WorkerPool {
   queueTask(
     type: string,
     payload: unknown,
+    internalState: unknown,
     abortSignal?: AbortSignal,
   ): Promise<unknown> {
     const id = this.#idCounter++;
@@ -78,6 +88,7 @@ export class WorkerPool {
         resolve,
         reject,
         payload,
+        internalState,
         state: "waiting" as const,
       };
 
@@ -114,7 +125,15 @@ export class WorkerPool {
       type: task.type,
       id: task.id,
       payload: task.payload,
+      internalState:
+        workerInfo.internalState !== task.internalState
+          ? task.internalState
+          : undefined,
     } as Action);
+
+    if (workerInfo !== task.internalState) {
+      workerInfo.internalState = task.internalState;
+    }
   }
 
   #terminateTask(task: Task) {
@@ -139,6 +158,7 @@ export class WorkerPool {
       const newWorkerInfo: WorkerInfo = {
         state: "idle",
         worker: newWorker,
+        internalState: null,
       };
       this.#initializeWorker(newWorkerInfo);
       this.#workers.push(newWorkerInfo);

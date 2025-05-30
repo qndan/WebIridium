@@ -5,3 +5,10 @@
   padding: var(--spacing-panel);
   gap: var(--spacing-5);
 }
+
+.panel-title {
+  font-size: var(--font-size-2);
+  font-weight: bold;
+  color: var(--primary-dim-foreground);
+  margin-block: var(--spacing-2);
+}

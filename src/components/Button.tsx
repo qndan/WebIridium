@@ -54,7 +54,7 @@ const Button = ({
       {canCancel && (
         <button
           className={clsx(styles.cancel, styles.primary)}
-          aria-label="cancel"
+          aria-label="Cancel"
           onClick={onCancel}
         >
           <CloseIcon />

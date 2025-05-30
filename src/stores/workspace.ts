@@ -14,6 +14,12 @@ export interface TimeCourseParameters {
   numberOfPoints: number;
 }
 
+export interface ParameterScanParameters {
+  min: number;
+  max: number;
+  numberOfValues: number;
+}
+
 export interface GraphSettings {
   backgroundColor: string;
   drawingAreaColor: string;
@@ -36,16 +42,40 @@ export interface GraphSettings {
   margin: number;
 }
 
+export interface TimeCourseSimulationResult {
+  type: "timeCourse";
+  titles: SimResult["titles"];
+  columns: SimResult["columns"];
+}
+
+export interface ParameterScanSimulationResult {
+  type: "parameterScan";
+  scans: {
+    titles: SimResult["titles"];
+    columns: SimResult["columns"];
+  }[];
+}
+
+export type SimulationResult =
+  | TimeCourseSimulationResult
+  | ParameterScanSimulationResult;
+
 // Atoms
 
 export const editorContentAtom = atom(defaultAntimonyModel);
 export const isSimulatingAtom = atom(false);
-export const simulationResultAtom = atom<SimResult | null>(null);
+export const simulationResultAtom = atom<SimulationResult | null>(null);
 
 export const timeCourseParametersAtom = atom<TimeCourseParameters>({
   startTime: 0,
   endTime: 20,
   numberOfPoints: 200,
+});
+
+export const parameterScanParametersAtom = atom<ParameterScanParameters>({
+  min: 0.1,
+  max: 1,
+  numberOfValues: 16,
 });
 
 export const graphSettingsAtom = atom<GraphSettings>({

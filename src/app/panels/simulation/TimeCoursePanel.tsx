@@ -54,6 +54,7 @@ export const TimeCourseSimulationPanel = () => {
 
   return (
     <div className={styles.simulationPanel}>
+      <h1 className={styles.panelTitle}>Time Course Simulation</h1>
       <Button
         icon={<PlayIcon />}
         isLoading={isSimulating}

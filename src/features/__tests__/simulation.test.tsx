@@ -1,5 +1,5 @@
-import { describe, it, expect, afterEach } from "vitest";
-import { simulateTimeCourse } from "../simulation";
+import { describe, it, expect, afterEach, vi } from "vitest";
+import { SimulationManager } from "../simulation";
 import { WorkerTermination } from "../workerPool";
 import {
   resetWorkerResponseDelay,
@@ -7,7 +7,8 @@ import {
 } from "@/testing-utils/mockWorker";
 
 const simulateTimeCourseGeneric = async (abortSignal?: AbortSignal) => {
-  return await simulateTimeCourse(
+  const simulationManager = new SimulationManager();
+  return await simulationManager.simulateTimeCourse(
     "blah",
     {
       startTime: 0,
@@ -17,6 +18,8 @@ const simulateTimeCourseGeneric = async (abortSignal?: AbortSignal) => {
     abortSignal,
   );
 };
+
+vi.mock("@/features/workers");
 
 afterEach(() => {
   resetWorkerResponseDelay();

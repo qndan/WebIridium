@@ -16,6 +16,7 @@
 
   --primary-background: #101112;
   --primary-foreground: #f2f5f7;
+  --primary-dim-foreground: #f2f5f7af;
   --primary-border: #212226;
   --primary-solid-border: 1px solid var(--primary-border);
 

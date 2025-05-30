@@ -21,19 +21,35 @@ self.onmessage = async (e) => {
   await loadLibraries();
 
   const action = e.data;
+
+  // Update loaded model if it changed
+  const antimonyCode = action.internalState;
+  if (antimonyCode) {
+    const sbmlConversion = antimony.convertAntimonyToSBML(antimonyCode);
+    // TODO: notify user about these warnings
+    if (sbmlConversion.getWarnings()) {
+      console.warn(sbmlConversion.getWarnings());
+    }
+    if (!sbmlConversion.isSuccess()) {
+      throw new Error(sbmlConversion.getResult());
+    }
+
+    copasi.loadModel(sbmlConversion.getResult());
+  }
+
   switch (action.type) {
     case "timeCourse":
-      const { antimonyCode, parameters } = action.payload;
-      const sbmlConversion = antimony.convertAntimonyToSBML(antimonyCode);
-      // TODO: notify user about these warnings
-      if (sbmlConversion.getWarnings()) {
-        console.warn(sbmlConversion.getWarnings());
-      }
-      if (!sbmlConversion.isSuccess()) {
-        throw new Error(sbmlConversion.getResult());
+      const { parameters } = action.payload;
+
+      // for parameter scan
+      if (parameters.varyingParameter) {
+        copasi.setValue(
+          parameters.varyingParameter,
+          parameters.varyingParameterValue,
+        );
       }
 
-      copasi.loadModel(sbmlConversion.getResult());
+      copasi.reset();
 
       const result = copasi.simulateEx(
         parameters.startTime,
