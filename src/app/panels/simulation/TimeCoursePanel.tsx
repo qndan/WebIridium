@@ -12,7 +12,7 @@ import {
   timeCourseParametersAtom,
   type TimeCourseParameters,
 } from "@/stores/workspace";
-import { useSimulate } from "@/features/simulation";
+import { useSimulate } from "@/features/simulation/useSimulate";
 
 const MAX_PARAMETER_VALUE = 1_0000_000;
 

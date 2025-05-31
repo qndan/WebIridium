@@ -3,11 +3,11 @@
  * Mostly meant to be mocked.
  */
 
-export type WorkerType = "simulation";
+export type WorkerType = "copasi";
 
 export const createWorker = (type: WorkerType): Worker => {
   switch (type) {
-    case "simulation":
-      return new Worker(import.meta.env.BASE_URL + "/simulationWorker.js");
+    case "copasi":
+      return new Worker(import.meta.env.BASE_URL + "/copasiWorker.js");
   }
 };

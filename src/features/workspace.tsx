@@ -1,10 +1,11 @@
 import { createContext, useContext, useMemo } from "react";
-import { SimulationManager } from "./simulation";
+import { type Simulator } from "@/features/simulation/Simulator";
 import { ScopeProvider } from "jotai-scope";
 import { allWorkspaceAtoms } from "@/stores/workspace";
+import { CopasiSimulator } from "@/features/simulation/CopasiSimulator";
 
 export interface Workspace {
-  simulationManager: SimulationManager;
+  simulator: Simulator;
 }
 
 const WorkspaceContext = createContext<Workspace | null>(null);
@@ -16,7 +17,7 @@ export const WorkspaceProvider = ({
 }) => {
   const workspace = useMemo(() => {
     return Object.freeze({
-      simulationManager: new SimulationManager(),
+      simulator: new CopasiSimulator(),
     });
   }, []);
 
@@ -27,6 +28,7 @@ export const WorkspaceProvider = ({
   );
 };
 
+// eslint-disable-next-line
 export const useWorkspace = () => {
   const workspace = useContext(WorkspaceContext);
   if (!workspace) {

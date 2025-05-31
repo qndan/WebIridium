@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { SimulationManager } from "../simulation";
+import { CopasiSimulator } from "@/features/simulation/CopasiSimulator";
 import { WorkerTermination } from "../workerPool";
 import {
   resetWorkerResponseDelay,
@@ -7,7 +7,7 @@ import {
 } from "@/testing-utils/mockWorker";
 
 const simulateTimeCourseGeneric = async (abortSignal?: AbortSignal) => {
-  const simulationManager = new SimulationManager();
+  const simulationManager = new CopasiSimulator();
   return await simulationManager.simulateTimeCourse(
     "blah",
     {

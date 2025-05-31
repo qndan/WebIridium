@@ -7,7 +7,7 @@ export const createWorker = (type: WorkerType) => {
   const worker = new MockWorker();
 
   switch (type) {
-    case "simulation": {
+    case "copasi": {
       worker.port.addEventListener("message", (e) => {
         const action = (e as MessageEvent<Action>).data;
         switch (action.type) {
