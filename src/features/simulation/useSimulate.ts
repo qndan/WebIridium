@@ -75,7 +75,9 @@ export const useSimulate = () => {
   const runParameterScan = async (abortSignal?: AbortSignal) => {
     return await runSimulation(async () => {
       const resultPromises = [];
-      const getDistribution = parameterScanParameters.useLogarithmicDistribution ? getLogarithmicDistribution : getLinearDistribution;
+      const getDistribution = parameterScanParameters.useLogarithmicDistribution
+        ? getLogarithmicDistribution
+        : getLinearDistribution;
       const scanValues = getDistribution(
         parameterScanParameters.min,
         parameterScanParameters.max,
@@ -151,4 +153,4 @@ const getLogarithmicDistribution = (
   }
 
   return list;
-}
+};

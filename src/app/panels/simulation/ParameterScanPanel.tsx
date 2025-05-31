@@ -77,7 +77,8 @@ const ParameterScanPanel = () => {
               onChange={handleChangeFor("numberOfValues")}
             />
             <BooleanProperty
-              name="Logarithmic distribution"
+              asideMode
+              name="Use logarithmic distribution"
               value={parameterScanParameters.useLogarithmicDistribution}
               onChange={handleChangeFor("useLogarithmicDistribution")}
             />

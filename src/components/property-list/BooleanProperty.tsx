@@ -6,11 +6,25 @@ export interface BooleanPropertyProps {
   name: string;
   value: boolean;
   onChange: (newValue: boolean) => void;
+
+  /**
+   * By default it looks like this:
+   *   property name    [x]
+   * in aside mode it looks like this:
+   *  [x] property name
+   * I don't know what else to call it.
+   */
+  asideMode?: boolean;
 }
 
-const BooleanProperty = ({ name, value, onChange }: BooleanPropertyProps) => {
+const BooleanProperty = ({
+  name,
+  value,
+  onChange,
+  asideMode,
+}: BooleanPropertyProps) => {
   return (
-    <div className={styles.property}>
+    <div className={asideMode ? styles.asideProperty : styles.property}>
       <label htmlFor={name} className={styles.propertyName}>
         {name}
       </label>
