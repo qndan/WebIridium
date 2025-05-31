@@ -2,13 +2,11 @@ import { useAtom } from "jotai";
 import { graphSettingsAtom } from "@/stores/workspace";
 import styles from "./Results.module.css";
 import PropertyList from "@/components/property-list/PropertyList";
-import BooleanProperty from "@/components/property-list/BooleanProperty";
-import NumericProperty from "@/components/property-list/NumericProperty";
-import NumericSliderProperty from "@/components/property-list/NumericSliderProperty";
 import PropertyAccordion from "@/components/property-accordion/PropertyAccordion";
 import PropertyAccordionItem from "@/components/property-accordion/PropertyAccordionItem";
-import StringProperty from "@/components/property-list/StringProperty";
-import ColorProperty from "@/components/property-list/ColorProperty";
+import PropertyGenerator, {
+  type Properties,
+} from "@/components/property-list/PropertyGenerator";
 
 // NOTE: Might be a good idea to have more atomic state updates.
 //       Right now every single component is updated when one property is updated.
@@ -16,12 +14,11 @@ import ColorProperty from "@/components/property-list/ColorProperty";
 const SettingsPanel = () => {
   const [graphSettings, setGraphSettings] = useAtom(graphSettingsAtom);
 
-  const changeHandlerFor = (
-    setting: keyof typeof graphSettings,
-  ): ((newValue: unknown) => void) => {
-    return (newValue) => {
-      setGraphSettings({ ...graphSettings, [setting]: newValue });
-    };
+  const setSetting = (name: string, value: unknown) => {
+    setGraphSettings({
+      ...graphSettings,
+      [name]: value,
+    });
   };
 
   return (
@@ -29,100 +26,85 @@ const SettingsPanel = () => {
       <PropertyAccordion defaultValue={["bounds"]}>
         <PropertyAccordionItem title="Bounds" value="bounds">
           <PropertyList>
-            <BooleanProperty
-              name="Autoscale X"
-              value={graphSettings.isAutoscaledX}
-              onChange={changeHandlerFor("isAutoscaledX")}
+            <PropertyGenerator
+              properties={graphSettings as unknown as Properties}
+              setProperty={setSetting}
+              names={{
+                isAutoscaledX: "Autoscale X",
+                isAutoscaledY: "Autoscale Y",
+                maxX: "X Maximum",
+                minX: "X Minimum",
+                maxY: "Y Maximum",
+                minY: "Y Minimum",
+              }}
+              restrictions={[
+                {
+                  restriction: "range",
+                  maxProperty: "maxX",
+                  minProperty: "minX",
+                },
+                {
+                  restriction: "range",
+                  maxProperty: "maxY",
+                  minProperty: "minY",
+                },
+                {
+                  restriction: "disappear",
+                  properties: ["maxX", "minX"],
+                  toggleProperty: "isAutoscaledX",
+                },
+                {
+                  restriction: "disappear",
+                  properties: ["maxY", "minY"],
+                  toggleProperty: "isAutoscaledY",
+                },
+              ]}
             />
-            {!graphSettings.isAutoscaledX && (
-              <NumericProperty
-                name="X Minimum"
-                value={graphSettings.minX}
-                onChange={changeHandlerFor("minX")}
-                validator={(newValue) => newValue < graphSettings.maxX}
-              />
-            )}
-            {!graphSettings.isAutoscaledX && (
-              <NumericProperty
-                name="X Maximum"
-                value={graphSettings.maxX}
-                onChange={changeHandlerFor("maxX")}
-                validator={(newValue) => newValue > graphSettings.minX}
-              />
-            )}
-
-            <BooleanProperty
-              name="Autoscale Y"
-              value={graphSettings.isAutoscaledY}
-              onChange={changeHandlerFor("isAutoscaledY")}
-            />
-            {!graphSettings.isAutoscaledY && (
-              <NumericProperty
-                name="Y Minimum"
-                value={graphSettings.minY}
-                onChange={changeHandlerFor("minY")}
-                validator={(newValue) => newValue < graphSettings.maxY}
-              />
-            )}
-            {!graphSettings.isAutoscaledY && (
-              <NumericProperty
-                name="Y Maximum"
-                value={graphSettings.maxY}
-                onChange={changeHandlerFor("maxY")}
-                validator={(newValue) => newValue > graphSettings.minY}
-              />
-            )}
           </PropertyList>
         </PropertyAccordionItem>
 
         <PropertyAccordionItem title="Graph" value="graph">
           <PropertyList>
-            <ColorProperty
-              name="Background Color"
-              value={graphSettings.backgroundColor}
-              onChange={changeHandlerFor("backgroundColor")}
+            <PropertyGenerator
+              properties={graphSettings as unknown as Properties}
+              setProperty={setSetting}
+              names={{
+                backgroundColor: "Background Color",
+                drawingAreaColor: "Drawing Area Color",
+                includeTitle: "Include Title",
+                title: "Title",
+                includeBorder: "Include Border",
+                borderColor: "Border Color",
+                borderThickness: "Border Thickness",
+              }}
+              restrictions={[
+                {
+                  restriction: "appear",
+                  properties: ["title"],
+                  toggleProperty: "includeTitle",
+                },
+                {
+                  restriction: "appear",
+                  properties: ["borderColor", "borderThickness"],
+                  toggleProperty: "includeBorder",
+                },
+                {
+                  restriction: "color",
+                  properties: [
+                    "backgroundColor",
+                    "drawingAreaColor",
+                    "borderColor",
+                  ],
+                },
+                {
+                  restriction: "slider",
+                  property: "borderThickness",
+                  min: 0,
+                  max: 10,
+                  step: 0.5,
+                },
+              ]}
             />
-            <ColorProperty
-              name="Drawing Area Color"
-              value={graphSettings.drawingAreaColor}
-              onChange={changeHandlerFor("drawingAreaColor")}
-            />
-
-            <BooleanProperty
-              name="Include Title"
-              value={graphSettings.includeTitle}
-              onChange={changeHandlerFor("includeTitle")}
-            />
-            {graphSettings.includeTitle && (
-              <StringProperty
-                name="Title"
-                value={graphSettings.title}
-                onChange={changeHandlerFor("title")}
-              />
-            )}
-
-            <BooleanProperty
-              name="Include Border"
-              value={graphSettings.includeBorder}
-              onChange={changeHandlerFor("includeBorder")}
-            />
-            {graphSettings.includeBorder && (
-              <ColorProperty
-                name="Border Color"
-                value={graphSettings.borderColor}
-                onChange={changeHandlerFor("borderColor")}
-              />
-            )}
-            {graphSettings.includeBorder && (
-              <NumericSliderProperty
-                name="Border Thickness"
-                value={graphSettings.borderThickness}
-                onChange={changeHandlerFor("borderThickness")}
-                min={0}
-                max={10}
-                step={0.5}
-              />
-            )}
           </PropertyList>
         </PropertyAccordionItem>
       </PropertyAccordion>

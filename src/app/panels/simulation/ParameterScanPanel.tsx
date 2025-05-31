@@ -6,12 +6,17 @@ import { useSimulate } from "@/features/simulation/useSimulate";
 import PlayIcon from "@/icons/PlayIcon";
 import PropertyAccordion from "@/components/property-accordion/PropertyAccordion";
 import PropertyAccordionItem from "@/components/property-accordion/PropertyAccordionItem";
-import NumericProperty from "@/components/property-list/NumericProperty";
 import { parameterScanParametersAtom } from "@/stores/workspace";
 import PropertyList from "@/components/property-list/PropertyList";
 import BooleanProperty from "@/components/property-list/BooleanProperty";
+import PropertyGenerator, {
+  type Properties,
+} from "@/components/property-list/PropertyGenerator";
 
 const ParameterScanPanel = () => {
+  const [parameterScanParameters, setParameterScanParameters] = useAtom(
+    parameterScanParametersAtom,
+  );
   const { isSimulating, runParameterScan } = useSimulate();
   const abortSimulationRef = useRef<AbortController | null>(null);
 
@@ -32,17 +37,11 @@ const ParameterScanPanel = () => {
     }
   };
 
-  const [parameterScanParameters, setParameterScanParameters] = useAtom(
-    parameterScanParametersAtom,
-  );
-
-  const handleChangeFor = (property: keyof typeof parameterScanParameters) => {
-    return (newValue: unknown) => {
-      setParameterScanParameters({
-        ...parameterScanParameters,
-        [property]: newValue,
-      });
-    };
+  const setProperty = (name: string, value: unknown) => {
+    setParameterScanParameters({
+      ...parameterScanParameters,
+      [name]: value,
+    });
   };
 
   return (
@@ -61,26 +60,45 @@ const ParameterScanPanel = () => {
       <PropertyAccordion defaultValue={["first-parameter"]}>
         <PropertyAccordionItem title="First Parameter" value="first-parameter">
           <PropertyList>
-            <NumericProperty
-              name="Min"
-              value={parameterScanParameters.min}
-              onChange={handleChangeFor("min")}
-            />
-            <NumericProperty
-              name="Max"
-              value={parameterScanParameters.max}
-              onChange={handleChangeFor("max")}
-            />
-            <NumericProperty
-              name="Number of Values"
-              value={parameterScanParameters.numberOfValues}
-              onChange={handleChangeFor("numberOfValues")}
+            <PropertyGenerator
+              properties={parameterScanParameters as unknown as Properties}
+              setProperty={setProperty}
+              names={{
+                min: "Min",
+                max: "Max",
+                numberOfValues: "Number of Values",
+              }}
+              restrictions={[
+                {
+                  restriction: "range",
+                  minProperty: "startTime",
+                  maxProperty: "endTime",
+                },
+                {
+                  restriction: "bounds",
+                  properties: ["min", "max"],
+                  min: 0,
+                  max: 1_000_000,
+                },
+                {
+                  restriction: "bounds",
+                  property: "numberOfValues",
+                  min: 2,
+                  max: 1_000_000,
+                },
+                {
+                  restriction: "integer",
+                  properties: ["min", "max", "numberOfValues"],
+                },
+              ]}
             />
             <BooleanProperty
               asideMode
               name="Use logarithmic distribution"
               value={parameterScanParameters.useLogarithmicDistribution}
-              onChange={handleChangeFor("useLogarithmicDistribution")}
+              onChange={(value) =>
+                setProperty("useLogarithmicDistribution", value)
+              }
             />
           </PropertyList>
         </PropertyAccordionItem>

@@ -7,17 +7,11 @@ import PlayIcon from "@/icons/PlayIcon";
 import PropertyAccordion from "@/components/property-accordion/PropertyAccordion";
 import PropertyAccordionItem from "@/components/property-accordion/PropertyAccordionItem";
 import PropertyList from "@/components/property-list/PropertyList";
-import NumericProperty from "@/components/property-list/NumericProperty";
-import {
-  timeCourseParametersAtom,
-  type TimeCourseParameters,
-} from "@/stores/workspace";
+import { timeCourseParametersAtom } from "@/stores/workspace";
 import { useSimulate } from "@/features/simulation/useSimulate";
-
-const MAX_PARAMETER_VALUE = 1_0000_000;
-
-const isParameterInRange = (value: number) =>
-  0 <= value && value <= MAX_PARAMETER_VALUE;
+import PropertyGenerator, {
+  type Properties,
+} from "@/components/property-list/PropertyGenerator";
 
 export const TimeCourseSimulationPanel = () => {
   const { isSimulating, simulateTimeCourse } = useSimulate();
@@ -43,15 +37,6 @@ export const TimeCourseSimulationPanel = () => {
     }
   };
 
-  const handleChangeFor = (parameter: keyof TimeCourseParameters) => {
-    return (newValue: number) => {
-      setTimeCourseParameters({
-        ...timeCourseParameters,
-        [parameter]: newValue,
-      });
-    };
-  };
-
   return (
     <div className={styles.simulationPanel}>
       <h1 className={styles.panelTitle}>Time Course Simulation</h1>
@@ -68,31 +53,36 @@ export const TimeCourseSimulationPanel = () => {
       <PropertyAccordion defaultValue={["sim-params"]}>
         <PropertyAccordionItem title="Simulation Parameters" value="sim-params">
           <PropertyList>
-            <NumericProperty
-              name="Start Time"
-              value={timeCourseParameters.startTime}
-              onChange={handleChangeFor("startTime")}
-              validator={(value) =>
-                isParameterInRange(value) &&
-                value < timeCourseParameters.endTime
+            <PropertyGenerator
+              properties={timeCourseParameters as unknown as Properties}
+              setProperty={(parameter, newValue) =>
+                setTimeCourseParameters({
+                  ...timeCourseParameters,
+                  [parameter]: newValue,
+                })
               }
-            />
-            <NumericProperty
-              name="End Time"
-              value={timeCourseParameters.endTime}
-              onChange={handleChangeFor("endTime")}
-              validator={(value) =>
-                isParameterInRange(value) &&
-                value > timeCourseParameters.startTime
-              }
-            />
-            <NumericProperty
-              name="Number of Points"
-              value={timeCourseParameters.numberOfPoints}
-              onChange={handleChangeFor("numberOfPoints")}
-              validator={(value) =>
-                isParameterInRange(value) && value === Math.floor(value)
-              }
+              names={{
+                startTime: "Start Time",
+                endTime: "End Time",
+                numberOfPoints: "Number of Points",
+              }}
+              restrictions={[
+                {
+                  restriction: "range",
+                  minProperty: "startTime",
+                  maxProperty: "endTime",
+                },
+                {
+                  restriction: "bounds",
+                  properties: ["startTime", "endTime", "numberOfPoints"],
+                  min: 0,
+                  max: 1_000_000,
+                },
+                {
+                  restriction: "integer",
+                  property: "numberOfPoints",
+                },
+              ]}
             />
           </PropertyList>
         </PropertyAccordionItem>
