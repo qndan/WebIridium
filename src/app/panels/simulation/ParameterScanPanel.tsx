@@ -9,6 +9,7 @@ import PropertyAccordionItem from "@/components/property-accordion/PropertyAccor
 import NumericProperty from "@/components/property-list/NumericProperty";
 import { parameterScanParametersAtom } from "@/stores/workspace";
 import PropertyList from "@/components/property-list/PropertyList";
+import BooleanProperty from "@/components/property-list/BooleanProperty";
 
 const ParameterScanPanel = () => {
   const { isSimulating, runParameterScan } = useSimulate();
@@ -35,7 +36,7 @@ const ParameterScanPanel = () => {
     parameterScanParametersAtom,
   );
 
-  const handleChangeFor = (property: string) => {
+  const handleChangeFor = (property: keyof typeof parameterScanParameters) => {
     return (newValue: unknown) => {
       setParameterScanParameters({
         ...parameterScanParameters,
@@ -74,6 +75,11 @@ const ParameterScanPanel = () => {
               name="Number of Values"
               value={parameterScanParameters.numberOfValues}
               onChange={handleChangeFor("numberOfValues")}
+            />
+            <BooleanProperty
+              name="Logarithmic distribution"
+              value={parameterScanParameters.useLogarithmicDistribution}
+              onChange={handleChangeFor("useLogarithmicDistribution")}
             />
           </PropertyList>
         </PropertyAccordionItem>

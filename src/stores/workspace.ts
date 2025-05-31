@@ -18,6 +18,7 @@ export interface ParameterScanParameters {
   min: number;
   max: number;
   numberOfValues: number;
+  useLogarithmicDistribution: boolean;
 }
 
 export interface GraphSettings {
@@ -78,6 +79,7 @@ export const parameterScanParametersAtom = atom<ParameterScanParameters>({
   min: 0.1,
   max: 1,
   numberOfValues: 16,
+  useLogarithmicDistribution: false,
 });
 
 export const graphSettingsAtom = atom<GraphSettings>({

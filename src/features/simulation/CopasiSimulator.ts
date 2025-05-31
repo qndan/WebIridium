@@ -14,7 +14,7 @@ export class CopasiSimulator extends Simulator {
   constructor() {
     super();
     this.#workerPool = new WorkerPool(() => createWorker("copasi"), {
-      maxWorkers: 3, // right now only using one worker since it is difficult to manage multiple
+      maxWorkers: 3,
     });
   }
 

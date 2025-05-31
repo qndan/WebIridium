@@ -75,7 +75,8 @@ export const useSimulate = () => {
   const runParameterScan = async (abortSignal?: AbortSignal) => {
     return await runSimulation(async () => {
       const resultPromises = [];
-      const scanValues = getParameterScanValues(
+      const getDistribution = parameterScanParameters.useLogarithmicDistribution ? getLogarithmicDistribution : getLinearDistribution;
+      const scanValues = getDistribution(
         parameterScanParameters.min,
         parameterScanParameters.max,
         parameterScanParameters.numberOfValues,
@@ -120,19 +121,34 @@ export const useSimulate = () => {
   };
 };
 
-/**
- * @returns values of a parameter for parameter scan.
- **/
-const getParameterScanValues = (
+const getLinearDistribution = (
   min: number,
   max: number,
   numberOfValues: number,
 ): number[] => {
   const list = [];
-  const range = max - min;
+  const stepSize = (max - min) / (numberOfValues - 1);
   for (let i = 0; i < numberOfValues; i++) {
-    const percentage = i / numberOfValues;
-    list.push(min + percentage * range);
+    list.push(min + i * stepSize);
   }
   return list;
 };
+
+const getLogarithmicDistribution = (
+  min: number,
+  max: number,
+  numberOfValues: number,
+): number[] => {
+  const list = [];
+
+  const logMin = Math.log10(min);
+  const logMax = Math.log10(max);
+  const logStepSize = (logMax - logMin) / (numberOfValues - 1);
+
+  for (let i = 0; i < numberOfValues; i++) {
+    const logValue = logMin + i * logStepSize;
+    list.push(Math.pow(10, logValue));
+  }
+
+  return list;
+}
