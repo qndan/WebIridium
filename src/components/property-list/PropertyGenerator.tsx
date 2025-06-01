@@ -233,7 +233,9 @@ const PropertyGenerator = ({
   });
 };
 
-const getRestrictedPropertiesFrom = (restriction: PropertyRestriction): string[] => {
+const getRestrictedPropertiesFrom = (
+  restriction: PropertyRestriction,
+): string[] => {
   if (restriction.restriction === "range") {
     return [restriction.minProperty, restriction.maxProperty];
   } else if ("properties" in restriction) {

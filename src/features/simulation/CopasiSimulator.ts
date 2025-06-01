@@ -1,10 +1,6 @@
 import type { TimeCourseParameters } from "@/stores/workspace.ts";
-import {
-  Simulator,
-  type TimeCourseAction,
-  type TimeCourseResult,
-  type ParameterScanOptions,
-} from "./Simulator";
+import type { ModelInfo, SimResult } from "@/third-party/copasi";
+import { Simulator, type ParameterScanOptions } from "./Simulator";
 import { WorkerPool } from "@/features/workerPool.ts";
 import { createWorker } from "@/features/workers.ts";
 
@@ -24,16 +20,25 @@ export class CopasiSimulator extends Simulator {
       | TimeCourseParameters
       | (TimeCourseParameters & ParameterScanOptions),
     abortSignal?: AbortSignal,
-  ): Promise<TimeCourseResult["data"]> {
+  ): Promise<SimResult> {
     const result = await this.#workerPool.queueTask(
       "timeCourse",
       {
         parameters,
-      } satisfies TimeCourseAction["payload"],
+      },
       antimonyCode,
       abortSignal,
     );
 
-    return result as TimeCourseResult["data"];
+    return result as SimResult;
+  }
+
+  async getModelInfo(antimonyCode: string, abortSignal?: AbortSignal) {
+    return (await this.#workerPool.queueTask(
+      "loadModel",
+      null,
+      antimonyCode,
+      abortSignal,
+    )) as ModelInfo;
   }
 }

@@ -1,4 +1,4 @@
-import type { SimResult } from "@/third-party/copasi.js";
+import type { ModelInfo, SimResult } from "@/third-party/copasi.js";
 import type { Action, Result } from "../workerPool.ts";
 import type { WorkerType } from "../workers.ts";
 import { MockWorker } from "@/testing-utils/mockWorker.ts";
@@ -24,6 +24,14 @@ export const createWorker = (type: WorkerType) => {
                   [0, 1, 2, 3, 4],
                 ],
               } as SimResult,
+            } as Result);
+            break;
+
+          case "loadModel":
+            worker.port.postMessage({
+              type: "loadModel",
+              id: action.id,
+              data: {},
             } as Result);
             break;
         }

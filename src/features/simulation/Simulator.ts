@@ -1,21 +1,5 @@
-import type { SimResult } from "@/third-party/copasi";
+import type { ModelInfo, SimResult } from "@/third-party/copasi";
 import type { TimeCourseParameters } from "@/stores/workspace";
-
-export type TimeCourseAction = {
-  type: "timeCourse";
-  id: number;
-  payload: {
-    parameters:
-      | TimeCourseParameters
-      | (TimeCourseParameters & ParameterScanOptions);
-  };
-};
-
-export type TimeCourseResult = {
-  type: "timeCourse";
-  id: number;
-  data: SimResult;
-};
 
 export type ParameterScanOptions = {
   varyingParameter: string;
@@ -29,5 +13,10 @@ export abstract class Simulator {
       | TimeCourseParameters
       | (TimeCourseParameters & ParameterScanOptions),
     abortSignal?: AbortSignal,
-  ): Promise<TimeCourseResult["data"]>;
+  ): Promise<SimResult>;
+
+  abstract getModelInfo(
+    antimonyCode: string,
+    abortSignal?: AbortSignal,
+  ): Promise<ModelInfo>;
 }

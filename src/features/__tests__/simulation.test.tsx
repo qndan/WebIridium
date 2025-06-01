@@ -5,7 +5,10 @@ import {
   resetWorkerResponseDelay,
   setWorkerResponseDelay,
 } from "@/testing-utils/mockWorker";
-import { getLinearDistribution, getLogarithmicDistribution } from "../simulation/useSimulate";
+import {
+  getLinearDistribution,
+  getLogarithmicDistribution,
+} from "../simulation/useSimulate";
 
 const simulateTimeCourseGeneric = async (abortSignal?: AbortSignal) => {
   const simulationManager = new CopasiSimulator();
@@ -51,6 +54,8 @@ describe("parameter scan distributions", () => {
   });
 
   it("should have working logarithmic distribution", () => {
-    expect(getLogarithmicDistribution(1, 10000, 5)).toEqual([1, 10, 100, 1000, 10000]);
+    expect(getLogarithmicDistribution(1, 10000, 5)).toEqual([
+      1, 10, 100, 1000, 10000,
+    ]);
   });
 });

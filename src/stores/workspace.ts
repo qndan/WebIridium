@@ -6,7 +6,7 @@
 
 import { atom } from "jotai";
 import defaultAntimonyModel from "/models/default.ant?raw";
-import type { SimResult } from "@/third-party/copasi";
+import type { SimResult, ModelInfo } from "@/third-party/copasi";
 
 export interface TimeCourseParameters {
   startTime: number;
@@ -66,6 +66,7 @@ export type SimulationResult =
 // Atoms
 
 export const editorContentAtom = atom(defaultAntimonyModel);
+export const modelInfoAtom = atom<ModelInfo | null>(null);
 export const isSimulatingAtom = atom(false);
 export const simulationResultAtom = atom<SimulationResult | null>(null);
 
@@ -110,6 +111,7 @@ export const graphSettingsAtom = atom<GraphSettings>({
  */
 export const allWorkspaceAtoms = [
   editorContentAtom,
+  modelInfoAtom,
   isSimulatingAtom,
   simulationResultAtom,
   timeCourseParametersAtom,

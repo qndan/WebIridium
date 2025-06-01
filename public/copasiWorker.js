@@ -63,6 +63,14 @@ self.onmessage = async (e) => {
       });
       break;
 
+    case "loadModel":
+      self.postMessage({
+        type: "loadModel",
+        id: action.id,
+        data: copasi.modelInfo,
+      });
+      break;
+
     default:
       throw new Error(`invalid action type: ${action.type}`);
   }

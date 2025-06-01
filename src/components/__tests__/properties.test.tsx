@@ -31,7 +31,14 @@ describe("NumericProperty", () => {
 
   it("should work with a validator", async () => {
     const onChange = vi.fn();
-    render(<NumericProperty name="test" value={5} onChange={onChange} validator={(newValue => newValue === 100)} />);
+    render(
+      <NumericProperty
+        name="test"
+        value={5}
+        onChange={onChange}
+        validator={(newValue) => newValue === 100}
+      />,
+    );
 
     const input = screen.getByLabelText("test");
     await userEvent.clear(input);
@@ -58,12 +65,22 @@ describe("BooleanProperty", () => {
 });
 
 describe("StringProperty", () => {
-  const StringPropertyContainer = ({ onChange }: { onChange: (value: string) => void }) => {
+  const StringPropertyContainer = ({
+    onChange,
+  }: {
+    onChange: (value: string) => void;
+  }) => {
     const [value, setValue] = useState("hello");
-    return <StringProperty name="test" value={value} onChange={(newValue) => {
-      setValue(newValue);
-      onChange(newValue);
-    }} />;
+    return (
+      <StringProperty
+        name="test"
+        value={value}
+        onChange={(newValue) => {
+          setValue(newValue);
+          onChange(newValue);
+        }}
+      />
+    );
   };
 
   it("should be editable", async () => {
