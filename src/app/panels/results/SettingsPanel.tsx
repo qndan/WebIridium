@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { graphSettingsAtom } from "@/stores/workspace";
-import styles from "./Results.module.css";
+import styles from "./results.module.css";
 import PropertyList from "@/components/property-list/PropertyList";
 import PropertyAccordion from "@/components/property-accordion/PropertyAccordion";
 import PropertyAccordionItem from "@/components/property-accordion/PropertyAccordionItem";

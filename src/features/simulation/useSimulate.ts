@@ -123,7 +123,7 @@ export const useSimulate = () => {
   };
 };
 
-const getLinearDistribution = (
+export const getLinearDistribution = (
   min: number,
   max: number,
   numberOfValues: number,
@@ -136,7 +136,7 @@ const getLinearDistribution = (
   return list;
 };
 
-const getLogarithmicDistribution = (
+export const getLogarithmicDistribution = (
   min: number,
   max: number,
   numberOfValues: number,

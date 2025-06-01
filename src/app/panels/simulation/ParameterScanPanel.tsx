@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useAtom } from "jotai";
 import Button from "@/components/Button";
-import styles from "./Simulation.module.css";
+import styles from "./simulation.module.css";
 import { useSimulate } from "@/features/simulation/useSimulate";
 import PlayIcon from "@/icons/PlayIcon";
 import PropertyAccordion from "@/components/property-accordion/PropertyAccordion";

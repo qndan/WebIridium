@@ -36,6 +36,7 @@ const NumericProperty = ({
     const value = e.target.value;
     const numericValue = +value;
     if (
+      value !== "" &&
       !Number.isNaN(numericValue) &&
       (!validator || validator(numericValue))
     ) {

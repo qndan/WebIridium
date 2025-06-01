@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useAtomValue } from "jotai";
 import { simulationResultAtom } from "@/stores/workspace";
-import styles from "./Results.module.css";
+import styles from "./results.module.css";
 import ResultsPlot from "./ResultsPlot";
 import SettingsPanel from "./SettingsPanel.tsx";
 

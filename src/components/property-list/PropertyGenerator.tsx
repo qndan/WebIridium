@@ -102,6 +102,16 @@ export type PropertyRestriction =
  *     ]
  *   })}
  * </PropertyList>
+ *
+ * @remarks
+ * This component should not be extended for one-off properties.
+ * When adding a custom property, do it like this instead:
+ * ```
+ * <PropertyList>
+ *   <PropertyGenerator ...>
+ *   <CustomProperty ...>
+ * </PropertyList>
+ * ```
  * ```
  */
 const PropertyGenerator = ({
@@ -223,7 +233,7 @@ const PropertyGenerator = ({
   });
 };
 
-const getRestrictedPropertiesFrom = (restriction: PropertyRestriction) => {
+const getRestrictedPropertiesFrom = (restriction: PropertyRestriction): string[] => {
   if (restriction.restriction === "range") {
     return [restriction.minProperty, restriction.maxProperty];
   } else if ("properties" in restriction) {
