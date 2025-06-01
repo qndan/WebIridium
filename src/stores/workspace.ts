@@ -15,6 +15,7 @@ export interface TimeCourseParameters {
 }
 
 export interface ParameterScanParameters {
+  varyingParameter: string | null;
   min: number;
   max: number;
   numberOfValues: number;
@@ -77,6 +78,7 @@ export const timeCourseParametersAtom = atom<TimeCourseParameters>({
 });
 
 export const parameterScanParametersAtom = atom<ParameterScanParameters>({
+  varyingParameter: null,
   min: 0.1,
   max: 1,
   numberOfValues: 16,

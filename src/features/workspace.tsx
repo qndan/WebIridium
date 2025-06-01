@@ -3,11 +3,12 @@ import { type Simulator } from "@/features/simulation/Simulator";
 import { ScopeProvider } from "jotai-scope";
 import {
   allWorkspaceAtoms,
+  parameterScanParametersAtom,
   editorContentAtom,
   modelInfoAtom,
 } from "@/stores/workspace";
 import { CopasiSimulator } from "@/features/simulation/CopasiSimulator";
-import { useSetAtom, useAtomValue } from "jotai";
+import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import { WorkerTermination } from "./workerPool";
 
 export interface Workspace {
@@ -26,6 +27,9 @@ const ModelInfoUpdater = () => {
   const workspace = useWorkspace();
   const setModelInfo = useSetAtom(modelInfoAtom);
   const editorContent = useAtomValue(editorContentAtom);
+  const [parameterScanParameters, setParameterScanParameters] = useAtom(
+    parameterScanParametersAtom,
+  );
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -33,6 +37,18 @@ const ModelInfoUpdater = () => {
     void workspace.simulator
       .getModelInfo(editorContent, abortController.signal)
       .then((info) => {
+        if (
+          parameterScanParameters.varyingParameter === null ||
+          info.global_parameters.find(
+            (p) => p.name === parameterScanParameters.varyingParameter,
+          )
+        ) {
+          setParameterScanParameters({
+            ...parameterScanParameters,
+            varyingParameter: info.global_parameters[0]?.name,
+          });
+        }
+
         console.log(info);
         setModelInfo(info);
       })
@@ -43,7 +59,13 @@ const ModelInfoUpdater = () => {
       });
 
     return () => abortController.abort();
-  }, [editorContent]);
+  }, [
+    editorContent,
+    parameterScanParameters,
+    setModelInfo,
+    setParameterScanParameters,
+    workspace,
+  ]);
 
   return <></>;
 };

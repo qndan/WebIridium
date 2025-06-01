@@ -27,6 +27,7 @@
 
   --tertiary-background: #38393b;
   --tertiary-foreground: #ebeef0;
+  --tertiary-dim-foreground: #ebeef0af;
   --tertiary-border: #56575c;
   --tertiary-solid-border: 1px solid var(--tertiary-border);
 

@@ -80,13 +80,13 @@ const SettingsPanel = () => {
               restrictions={[
                 {
                   restriction: "appear",
-                  properties: ["title"],
                   toggleProperty: "includeTitle",
+                  properties: ["title"],
                 },
                 {
                   restriction: "appear",
-                  properties: ["borderColor", "borderThickness"],
                   toggleProperty: "includeBorder",
+                  properties: ["borderColor", "borderThickness"],
                 },
                 {
                   restriction: "color",

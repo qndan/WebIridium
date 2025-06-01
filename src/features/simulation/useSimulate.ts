@@ -71,9 +71,14 @@ export const useSimulate = () => {
     });
   };
 
-  const HARDCODED_CHANGE_LATER_parameterName = "k1";
   const runParameterScan = async (abortSignal?: AbortSignal) => {
     return await runSimulation(async () => {
+      const parameter = parameterScanParameters.varyingParameter;
+      if (!parameter) {
+        console.log("??");
+        throw new Error("select parameter to scan with");
+      }
+
       const resultPromises = [];
       const getDistribution = parameterScanParameters.useLogarithmicDistribution
         ? getLogarithmicDistribution
@@ -90,7 +95,7 @@ export const useSimulate = () => {
             editorContent,
             {
               ...timeCourseParameters,
-              varyingParameter: HARDCODED_CHANGE_LATER_parameterName,
+              varyingParameter: parameter,
               varyingParameterValue: value,
             },
             abortSignal,
@@ -111,7 +116,7 @@ export const useSimulate = () => {
       return {
         type: "parameterScan",
         scans,
-        parameter: HARDCODED_CHANGE_LATER_parameterName,
+        parameter: parameter,
       };
     });
   };

@@ -78,10 +78,7 @@ export const TimeCourseSimulationPanel = () => {
                   min: 0,
                   max: 1_000_000,
                 },
-                {
-                  restriction: "integer",
-                  property: "numberOfPoints",
-                },
+                { restriction: "integer", property: "numberOfPoints" },
               ]}
             />
           </PropertyList>

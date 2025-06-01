@@ -206,3 +206,60 @@
     transform: translateY(0);
   }
 }
+
+/* Select */
+
+.select-trigger {
+  display: flex;
+  background-color: var(--input-background);
+  border: var(--input-solid-border);
+  border-radius: var(--border-radius);
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.select-trigger-icon {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.select-content {
+  background-color: var(--tertiary-background);
+  border: var(--tertiary-solid-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-1);
+  padding: var(--spacing-4);
+}
+
+.select-label {
+  color: var(--tertiary-dim-foreground);
+  font-size: var(--font-size-1);
+  padding: var(--spacing-2);
+}
+
+.select-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  font-size: var(--font-size-1);
+  padding: var(--spacing-2);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  &[data-highlighted] {
+    color: var(--primary-foreground);
+    background-color: var(--primary-accent);
+  }
+}
+
+.select-item-indicator {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.select-scroll-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

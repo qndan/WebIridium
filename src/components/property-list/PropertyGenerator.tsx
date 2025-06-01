@@ -3,6 +3,7 @@ import ColorProperty from "./ColorProperty";
 import StringProperty from "./StringProperty";
 import NumericProperty from "./NumericProperty";
 import NumericSliderProperty from "./NumericSliderProperty";
+import SelectProperty from "./SelectProperty";
 
 export type Properties = { [name: string]: string | number | boolean };
 export interface PropertyGeneratorProps {
@@ -76,6 +77,11 @@ export type AppearRestriction = RestrictionBase & {
   toggleProperty: string;
 };
 
+export type SelectRestriction = RestrictionBase & {
+  restriction: "selectWithGroups";
+  groups: Record<string, string[]>;
+};
+
 export type PropertyRestriction =
   | ColorRestriction
   | RangeRestriction
@@ -83,7 +89,8 @@ export type PropertyRestriction =
   | BoundsRestriction
   | SliderRestriction
   | DisappearRestriction
-  | AppearRestriction;
+  | AppearRestriction
+  | SelectRestriction;
 
 /**
  * Utility component to generate property inputs for use inside <PropertyList/>
@@ -102,16 +109,16 @@ export type PropertyRestriction =
  *     ]
  *   })}
  * </PropertyList>
+ * ```
  *
  * @remarks
  * This component should not be extended for one-off properties.
  * When adding a custom property, do it like this instead:
  * ```
  * <PropertyList>
- *   <PropertyGenerator ...>
- *   <CustomProperty ...>
+ *   <PropertyGenerator />
+ *   <CustomProperty />
  * </PropertyList>
- * ```
  * ```
  */
 const PropertyGenerator = ({
@@ -146,12 +153,7 @@ const PropertyGenerator = ({
     };
   };
 
-  return Object.entries(properties).map(([property, value]) => {
-    const name = names[property];
-    if (name === undefined) {
-      return;
-    }
-
+  return Object.entries(names).map(([property, displayName]) => {
     const disappearRestriction = restrictionMap[property]?.find(
       (r) => r.restriction === "disappear",
     );
@@ -169,12 +171,13 @@ const PropertyGenerator = ({
       return;
     }
 
+    const value = properties[property];
     switch (typeof value) {
       case "boolean":
         return (
           <BooleanProperty
             key={property}
-            name={name}
+            name={displayName}
             value={value}
             onChange={handleChangeFor(property)}
           />
@@ -188,7 +191,7 @@ const PropertyGenerator = ({
           return (
             <NumericSliderProperty
               key={property}
-              name={name}
+              name={displayName}
               value={value}
               onChange={handleChangeFor(property)}
               min={sliderRestriction.min}
@@ -200,7 +203,7 @@ const PropertyGenerator = ({
           return (
             <NumericProperty
               key={property}
-              name={name}
+              name={displayName}
               value={value}
               onChange={handleChangeFor(property)}
               validator={validatorFor(property)}
@@ -209,12 +212,27 @@ const PropertyGenerator = ({
         }
       }
 
-      case "string":
-        if (restrictionMap[property]?.some((r) => r.restriction === "color")) {
+      case "string": {
+        const selectRestriction = restrictionMap[property]?.find(
+          (r) => r.restriction === "selectWithGroups",
+        );
+        if (selectRestriction) {
+          return (
+            <SelectProperty
+              key={property}
+              name={displayName}
+              value={value}
+              groups={selectRestriction.groups}
+              onChange={handleChangeFor(property)}
+            />
+          );
+        } else if (
+          restrictionMap[property]?.find((r) => r.restriction === "color")
+        ) {
           return (
             <ColorProperty
               key={property}
-              name={name}
+              name={displayName}
               value={value}
               onChange={handleChangeFor(property)}
             />
@@ -223,12 +241,13 @@ const PropertyGenerator = ({
           return (
             <StringProperty
               key={property}
-              name={name}
+              name={displayName}
               value={value}
               onChange={handleChangeFor(property)}
             />
           );
         }
+      }
     }
   });
 };

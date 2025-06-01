@@ -28,6 +28,7 @@ export const createWorker = (type: WorkerType) => {
             break;
 
           case "loadModel":
+            // TODO: mock this properly
             worker.port.postMessage({
               type: "loadModel",
               id: action.id,

@@ -6,17 +6,19 @@ import { useSimulate } from "@/features/simulation/useSimulate";
 import PlayIcon from "@/icons/PlayIcon";
 import PropertyAccordion from "@/components/property-accordion/PropertyAccordion";
 import PropertyAccordionItem from "@/components/property-accordion/PropertyAccordionItem";
-import { parameterScanParametersAtom } from "@/stores/workspace";
+import { modelInfoAtom, parameterScanParametersAtom } from "@/stores/workspace";
 import PropertyList from "@/components/property-list/PropertyList";
 import BooleanProperty from "@/components/property-list/BooleanProperty";
 import PropertyGenerator, {
   type Properties,
 } from "@/components/property-list/PropertyGenerator";
+import { useAtomValue } from "jotai";
 
 const ParameterScanPanel = () => {
   const [parameterScanParameters, setParameterScanParameters] = useAtom(
     parameterScanParametersAtom,
   );
+  const modelInfo = useAtomValue(modelInfoAtom);
   const { isSimulating, runParameterScan } = useSimulate();
   const abortSimulationRef = useRef<AbortController | null>(null);
 
@@ -64,15 +66,27 @@ const ParameterScanPanel = () => {
               properties={parameterScanParameters as unknown as Properties}
               setProperty={setProperty}
               names={{
+                varyingParameter: "Parameter",
                 min: "Min",
                 max: "Max",
                 numberOfValues: "Number of Values",
               }}
               restrictions={[
                 {
+                  restriction: "selectWithGroups",
+                  property: "varyingParameter",
+                  groups: {
+                    Parameters:
+                      modelInfo?.global_parameters.map((param) => param.name) ??
+                      [],
+                    Species:
+                      modelInfo?.species.map((specie) => specie.name) ?? [],
+                  },
+                },
+                {
                   restriction: "range",
-                  minProperty: "startTime",
-                  maxProperty: "endTime",
+                  minProperty: "min",
+                  maxProperty: "max",
                 },
                 {
                   restriction: "bounds",
