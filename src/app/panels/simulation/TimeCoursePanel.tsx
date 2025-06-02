@@ -13,7 +13,7 @@ import PropertyGenerator, {
   type Properties,
 } from "@/components/property-list/PropertyGenerator";
 
-export const TimeCourseSimulationPanel = () => {
+export const TimeCoursePanel = () => {
   const { isSimulating, simulateTimeCourse } = useSimulate();
   const [timeCourseParameters, setTimeCourseParameters] = useAtom(
     timeCourseParametersAtom,
@@ -88,4 +88,4 @@ export const TimeCourseSimulationPanel = () => {
   );
 };
 
-export default TimeCourseSimulationPanel;
+export default TimeCoursePanel;

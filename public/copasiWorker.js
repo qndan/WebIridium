@@ -42,25 +42,18 @@ self.onmessage = async (e) => {
       const { parameters, varyingParameter, varyingParameterValue } =
         action.payload;
 
+      copasi.resetAll();
+
       // for parameter scan
-      let originalValue;
       if (varyingParameter) {
-        originalValue = copasi.getValue(varyingParameter);
         copasi.setValue(varyingParameter, varyingParameterValue);
       }
-
-      copasi.reset();
 
       const result = copasi.simulateEx(
         parameters.startTime,
         parameters.endTime,
         parameters.numberOfPoints,
       );
-
-      // reset the parameter when done
-      if (varyingParameter) {
-        copasi.setValue(varyingParameter, originalValue);
-      }
 
       self.postMessage({
         type: "timeCourse",
