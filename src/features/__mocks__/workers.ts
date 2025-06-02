@@ -32,7 +32,7 @@ export const createWorker = (type: WorkerType) => {
             worker.port.postMessage({
               type: "loadModel",
               id: action.id,
-              data: {},
+              data: {} as ModelInfo,
             } as Result);
             break;
         }
