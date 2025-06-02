@@ -15,7 +15,7 @@ afterEach(() => {
  * @param buttonText - text that appears on the button
  * @param render - renders the panel containing the button and plot panel
  *
- * @note
+ * @remarks
  * make sure to mock everything required to get a simulation to run in the test
  * environment
  */
