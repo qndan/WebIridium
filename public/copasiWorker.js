@@ -42,6 +42,7 @@ self.onmessage = async (e) => {
       const { parameters } = action.payload;
 
       // for parameter scan
+      // TODO: reset parameter when done
       if (parameters.varyingParameter) {
         copasi.setValue(
           parameters.varyingParameter,

@@ -19,4 +19,6 @@ export abstract class Simulator {
     antimonyCode: string,
     abortSignal?: AbortSignal,
   ): Promise<ModelInfo>;
+
+  abstract getParameterFromSpecies(species: string): string;
 }

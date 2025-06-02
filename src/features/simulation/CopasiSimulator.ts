@@ -41,4 +41,8 @@ export class CopasiSimulator extends Simulator {
       abortSignal,
     )) as ModelInfo;
   }
+
+  getParameterFromSpecies(species: string): string {
+    return `[${species}]_0`;
+  }
 }

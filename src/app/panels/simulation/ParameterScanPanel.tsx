@@ -13,8 +13,10 @@ import PropertyGenerator, {
   type Properties,
 } from "@/components/property-list/PropertyGenerator";
 import { useAtomValue } from "jotai";
+import { useSimulator } from "@/features/workspace";
 
 const ParameterScanPanel = () => {
+  const simulator = useSimulator();
   const [parameterScanParameters, setParameterScanParameters] = useAtom(
     parameterScanParametersAtom,
   );
@@ -76,11 +78,18 @@ const ParameterScanPanel = () => {
                   restriction: "selectWithGroups",
                   property: "varyingParameter",
                   groups: {
-                    Parameters:
-                      modelInfo?.global_parameters.map((param) => param.name) ??
-                      [],
-                    Species:
-                      modelInfo?.species.map((specie) => specie.name) ?? [],
+                    Parameters: Object.fromEntries(
+                      modelInfo?.global_parameters.map((param) => [
+                        param.name,
+                        param.name,
+                      ]) ?? [],
+                    ),
+                    Species: Object.fromEntries(
+                      modelInfo?.species.map((specie) => [
+                        specie.name,
+                        simulator.getParameterFromSpecies(specie.name),
+                      ]) ?? [],
+                    ),
                   },
                 },
                 {

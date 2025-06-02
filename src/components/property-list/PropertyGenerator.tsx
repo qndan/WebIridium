@@ -3,7 +3,9 @@ import ColorProperty from "./ColorProperty";
 import StringProperty from "./StringProperty";
 import NumericProperty from "./NumericProperty";
 import NumericSliderProperty from "./NumericSliderProperty";
-import SelectProperty from "./SelectProperty";
+import SelectProperty, {
+  type SelectPropertyGroupedProps,
+} from "./SelectProperty";
 
 export type Properties = { [name: string]: string | number | boolean };
 export interface PropertyGeneratorProps {
@@ -79,7 +81,7 @@ export type AppearRestriction = RestrictionBase & {
 
 export type SelectRestriction = RestrictionBase & {
   restriction: "selectWithGroups";
-  groups: Record<string, string[]>;
+  groups: SelectPropertyGroupedProps["groups"];
 };
 
 export type PropertyRestriction =

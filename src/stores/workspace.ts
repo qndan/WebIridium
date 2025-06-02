@@ -7,6 +7,7 @@
 import { atom } from "jotai";
 import defaultAntimonyModel from "/models/default.ant?raw";
 import type { SimResult, ModelInfo } from "@/third-party/copasi";
+import type { Simulator } from "@/features/simulation/Simulator";
 
 export interface TimeCourseParameters {
   startTime: number;
@@ -66,6 +67,7 @@ export type SimulationResult =
 
 // Atoms
 
+export const simulatorAtom = atom<Simulator>();
 export const editorContentAtom = atom(defaultAntimonyModel);
 export const modelInfoAtom = atom<ModelInfo | null>(null);
 export const isSimulatingAtom = atom(false);

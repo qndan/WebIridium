@@ -11,11 +11,11 @@ export type SelectPropertyPropsBase = {
 };
 
 export type SelectPropertyBasicProps = SelectPropertyPropsBase & {
-  options: string[];
+  options: { [name: string]: string };
 };
 
 export type SelectPropertyGroupedProps = SelectPropertyPropsBase & {
-  groups: Record<string, string[]>;
+  groups: { [group: string]: { [name: string]: string } };
 };
 
 export type SelectPropertyProps =
@@ -50,24 +50,27 @@ const SelectProperty = (props: SelectPropertyProps) => {
 
       <RadixSelect.Root value={value} onValueChange={onChange}>
         <RadixSelect.Trigger
+          id={name}
           className={clsx(styles.propertyInput, styles.selectTrigger)}
         >
           <RadixSelect.Value placeholder={name} />
           <RadixSelect.Icon className={styles.selectTriggerIcon}>
-            {/* TODO: flip this upside down so it points up */}
             <ChevronDownIcon />
           </RadixSelect.Icon>
         </RadixSelect.Trigger>
         <RadixSelect.Portal>
           <RadixSelect.Content className={styles.selectContent}>
-            <RadixSelect.ScrollUpButton className={styles.selectScrollButton}>
+            <RadixSelect.ScrollUpButton
+              className={styles.selectScrollButton}
+              style={{ transform: "rotate(180deg)" }}
+            >
               <ChevronDownIcon />
             </RadixSelect.ScrollUpButton>
             <RadixSelect.Viewport>
               {"options" in props &&
-                props.options.map((option) => (
-                  <SelectItem key={option} value={option}>
-                    {option}
+                Object.entries(props.options).map(([name, value]) => (
+                  <SelectItem key={value} value={value}>
+                    {name}
                   </SelectItem>
                 ))}
 
@@ -78,9 +81,9 @@ const SelectProperty = (props: SelectPropertyProps) => {
                     <RadixSelect.Label className={styles.selectLabel}>
                       {group}
                     </RadixSelect.Label>
-                    {options.map((option) => (
-                      <SelectItem key={option} value={option}>
-                        {option}
+                    {Object.entries(options).map(([name, value]) => (
+                      <SelectItem key={value} value={value}>
+                        {name}
                       </SelectItem>
                     ))}
                   </RadixSelect.Group>

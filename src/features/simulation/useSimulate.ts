@@ -8,7 +8,7 @@ import {
   timeCourseParametersAtom,
   parameterScanParametersAtom,
 } from "@/stores/workspace";
-import { useWorkspace } from "@/features/workspace.tsx";
+import { useSimulator } from "@/features/workspace.tsx";
 
 export type SimulationOperationResult =
   | { type: "success" }
@@ -23,7 +23,7 @@ export type SimulationOperationResult =
  * - `simulateTimeCourse` - start a time course simulation. Accepts an abort signal.
  */
 export const useSimulate = () => {
-  const workspace = useWorkspace();
+  const simulator = useSimulator();
   const editorContent = useAtomValue(editorContentAtom);
   const setSimulationResult = useSetAtom(simulationResultAtom);
   const timeCourseParameters = useAtomValue(timeCourseParametersAtom);
@@ -58,7 +58,7 @@ export const useSimulate = () => {
     abortSignal?: AbortSignal,
   ): Promise<SimulationOperationResult> => {
     return await runSimulation(async () => {
-      const result = await workspace.simulator.simulateTimeCourse(
+      const result = await simulator.simulateTimeCourse(
         editorContent,
         timeCourseParameters,
         abortSignal,
@@ -91,7 +91,7 @@ export const useSimulate = () => {
 
       for (const value of scanValues) {
         resultPromises.push(
-          workspace.simulator.simulateTimeCourse(
+          simulator.simulateTimeCourse(
             editorContent,
             {
               ...timeCourseParameters,

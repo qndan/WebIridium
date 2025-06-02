@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo } from "react";
+import type { ModelInfo } from "@/third-party/copasi";
 import { type Simulator } from "@/features/simulation/Simulator";
 import { ScopeProvider } from "jotai-scope";
 import {
@@ -17,6 +18,19 @@ export interface Workspace {
 
 const WorkspaceContext = createContext<Workspace | null>(null);
 
+const hasParameter = (
+  simulator: Simulator,
+  modelInfo: ModelInfo,
+  name: string | null,
+): boolean => {
+  return Boolean(
+    modelInfo.global_parameters.find((param) => param.name === name) ||
+      modelInfo.species.find(
+        (specie) => simulator.getParameterFromSpecies(specie.name) === name,
+      ),
+  );
+};
+
 /**
  * This component just exists to update the model info.
  * It has to be in a separate component so it has access to the context.
@@ -24,7 +38,7 @@ const WorkspaceContext = createContext<Workspace | null>(null);
  *       does this intead of using an effect once Monaco is integrated.
  */
 const ModelInfoUpdater = () => {
-  const workspace = useWorkspace();
+  const simulator = useSimulator();
   const setModelInfo = useSetAtom(modelInfoAtom);
   const editorContent = useAtomValue(editorContentAtom);
   const [parameterScanParameters, setParameterScanParameters] = useAtom(
@@ -34,13 +48,14 @@ const ModelInfoUpdater = () => {
   useEffect(() => {
     const abortController = new AbortController();
 
-    void workspace.simulator
+    void simulator
       .getModelInfo(editorContent, abortController.signal)
       .then((info) => {
         if (
-          parameterScanParameters.varyingParameter === null ||
-          info.global_parameters.find(
-            (p) => p.name === parameterScanParameters.varyingParameter,
+          !hasParameter(
+            simulator,
+            info,
+            parameterScanParameters.varyingParameter,
           )
         ) {
           setParameterScanParameters({
@@ -64,7 +79,7 @@ const ModelInfoUpdater = () => {
     parameterScanParameters,
     setModelInfo,
     setParameterScanParameters,
-    workspace,
+    simulator,
   ]);
 
   return <></>;
@@ -92,11 +107,11 @@ export const WorkspaceProvider = ({
 };
 
 // eslint-disable-next-line
-export const useWorkspace = () => {
+export const useSimulator = () => {
   const workspace = useContext(WorkspaceContext);
   if (!workspace) {
     throw new Error("must be inside a workspace!");
   }
 
-  return workspace;
+  return workspace.simulator;
 };
