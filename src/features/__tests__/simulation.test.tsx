@@ -15,9 +15,11 @@ const simulateTimeCourseGeneric = async (abortSignal?: AbortSignal) => {
   return await simulationManager.simulateTimeCourse(
     "blah",
     {
-      startTime: 0,
-      endTime: 10,
-      numberOfPoints: 200,
+      parameters: {
+        startTime: 0,
+        endTime: 10,
+        numberOfPoints: 200,
+      }
     },
     abortSignal,
   );
