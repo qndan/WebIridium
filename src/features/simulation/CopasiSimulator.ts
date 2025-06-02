@@ -16,15 +16,21 @@ export class CopasiSimulator extends Simulator {
 
   async simulateTimeCourse(
     antimonyCode: string,
-    parameters:
-      | TimeCourseParameters
-      | (TimeCourseParameters & ParameterScanOptions),
+    {
+      parameters,
+      parameterScanOptions,
+    }: {
+      parameters: TimeCourseParameters;
+      parameterScanOptions?: ParameterScanOptions;
+    },
     abortSignal?: AbortSignal,
   ): Promise<SimResult> {
     const result = await this.#workerPool.queueTask(
       "timeCourse",
       {
         parameters,
+        varyingParameter: parameterScanOptions?.varyingParameter,
+        varyingParameterValue: parameterScanOptions?.varyingParameterValue,
       },
       antimonyCode,
       abortSignal,

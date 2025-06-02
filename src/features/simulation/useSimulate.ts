@@ -60,7 +60,7 @@ export const useSimulate = () => {
     return await runSimulation(async () => {
       const result = await simulator.simulateTimeCourse(
         editorContent,
-        timeCourseParameters,
+        { parameters: timeCourseParameters },
         abortSignal,
       );
       return {
@@ -94,9 +94,11 @@ export const useSimulate = () => {
           simulator.simulateTimeCourse(
             editorContent,
             {
-              ...timeCourseParameters,
-              varyingParameter: parameter,
-              varyingParameterValue: value,
+              parameters: timeCourseParameters,
+              parameterScanOptions: {
+                varyingParameter: parameter,
+                varyingParameterValue: value,
+              },
             },
             abortSignal,
           ),

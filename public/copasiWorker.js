@@ -39,15 +39,14 @@ self.onmessage = async (e) => {
 
   switch (action.type) {
     case "timeCourse":
-      const { parameters } = action.payload;
+      const { parameters, varyingParameter, varyingParameterValue } =
+        action.payload;
 
       // for parameter scan
-      // TODO: reset parameter when done
-      if (parameters.varyingParameter) {
-        copasi.setValue(
-          parameters.varyingParameter,
-          parameters.varyingParameterValue,
-        );
+      let originalValue;
+      if (varyingParameter) {
+        originalValue = copasi.getValue(varyingParameter);
+        copasi.setValue(varyingParameter, varyingParameterValue);
       }
 
       copasi.reset();
@@ -57,6 +56,12 @@ self.onmessage = async (e) => {
         parameters.endTime,
         parameters.numberOfPoints,
       );
+
+      // reset the parameter when done
+      if (varyingParameter) {
+        copasi.setValue(varyingParameter, originalValue);
+      }
+
       self.postMessage({
         type: "timeCourse",
         id: action.id,

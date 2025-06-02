@@ -9,9 +9,13 @@ export type ParameterScanOptions = {
 export abstract class Simulator {
   abstract simulateTimeCourse(
     antimonyCode: string,
-    parameters:
-      | TimeCourseParameters
-      | (TimeCourseParameters & ParameterScanOptions),
+    {
+      parameters,
+      parameterScanOptions,
+    }: {
+      parameters: TimeCourseParameters;
+      parameterScanOptions?: ParameterScanOptions;
+    },
     abortSignal?: AbortSignal,
   ): Promise<SimResult>;
 
