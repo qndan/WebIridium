@@ -19,8 +19,10 @@ afterEach(() => {
  * make sure to mock everything required to get a simulation to run in the test
  * environment
  */
-export const testSimulationButton = (buttonText: string, render: () => void) => {
-
+export const testSimulationButton = (
+  buttonText: string,
+  render: () => void,
+) => {
   it("should disable when starting a simulation", async () => {
     // need to have some delay otherwise the button will instantly simulate and undisable itself
 

@@ -31,9 +31,9 @@ const SettingsPanel = () => {
               setProperty={setSetting}
               names={{
                 isAutoscaledX: "Autoscale X",
-                isAutoscaledY: "Autoscale Y",
                 maxX: "X Maximum",
                 minX: "X Minimum",
+                isAutoscaledY: "Autoscale Y",
                 maxY: "Y Maximum",
                 minY: "Y Minimum",
               }}

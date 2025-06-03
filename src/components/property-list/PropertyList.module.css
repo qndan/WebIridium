@@ -233,7 +233,7 @@
 }
 
 .select-label {
-  color: var(--tertiary-dim-foreground);
+  color: var(--tertiary-foreground-dim);
   font-size: var(--font-size-1);
   padding: var(--spacing-2);
 }

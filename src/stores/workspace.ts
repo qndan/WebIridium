@@ -23,6 +23,11 @@ export interface ParameterScanParameters {
   useLogarithmicDistribution: boolean;
 }
 
+export interface VariableOptions {
+  name: string;
+  visible: boolean;
+}
+
 export interface GraphSettings {
   backgroundColor: string;
   drawingAreaColor: string;

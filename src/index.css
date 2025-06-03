@@ -16,23 +16,25 @@
 
   --primary-background: #101112;
   --primary-foreground: #f2f5f7;
-  --primary-dim-foreground: #f2f5f7af;
+  --primary-foreground-dim: #f2f5f7af;
   --primary-border: #212226;
   --primary-solid-border: 1px solid var(--primary-border);
 
   --secondary-background: #252729;
   --secondary-foreground: #f0f3f5;
+  --secondary-foreground-dim: #f0f3f59f;
   --secondary-border: #43444d;
   --secondary-solid-border: 1px solid var(--secondary-border);
 
   --tertiary-background: #38393b;
   --tertiary-foreground: #ebeef0;
-  --tertiary-dim-foreground: #ebeef0af;
+  --tertiary-foreground-dim: #ebeef0af;
   --tertiary-border: #56575c;
   --tertiary-solid-border: 1px solid var(--tertiary-border);
 
   --input-background: #1f2021;
   --input-foreground: var(--secondary-foreground);
+  --input-foreground-dim: var(--secondary-foreground-dim);
   --input-border: #494a4c;
   --input-solid-border: 1px solid var(--input-border);
   --input-solid-border-focused: 1px solid var(--primary-accent);

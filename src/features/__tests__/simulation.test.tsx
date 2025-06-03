@@ -19,7 +19,7 @@ const simulateTimeCourseGeneric = async (abortSignal?: AbortSignal) => {
         startTime: 0,
         endTime: 10,
         numberOfPoints: 200,
-      }
+      },
     },
     abortSignal,
   );

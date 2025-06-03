@@ -12,6 +12,7 @@ import { useSimulate } from "@/features/simulation/useSimulate";
 import PropertyGenerator, {
   type Properties,
 } from "@/components/property-list/PropertyGenerator";
+import VariableList from "@/components/variable-list/VariableList";
 
 export const TimeCoursePanel = () => {
   const { isSimulating, simulateTimeCourse } = useSimulate();
@@ -50,7 +51,7 @@ export const TimeCoursePanel = () => {
         Simulate
       </Button>
 
-      <PropertyAccordion defaultValue={["sim-params"]}>
+      <PropertyAccordion defaultValue={["sim-params", "dependent-variables"]}>
         <PropertyAccordionItem title="Simulation Parameters" value="sim-params">
           <PropertyList>
             <PropertyGenerator
@@ -82,6 +83,18 @@ export const TimeCoursePanel = () => {
               ]}
             />
           </PropertyList>
+        </PropertyAccordionItem>
+
+        <PropertyAccordionItem
+          title="Dependent Variables"
+          value="dependent-variables"
+        >
+          <VariableList
+            variables={[
+              { name: "test", visible: false },
+              { name: "test2", visible: false },
+            ]}
+          />
         </PropertyAccordionItem>
       </PropertyAccordion>
     </div>

@@ -10,10 +10,12 @@ vi.mock("plotly.js");
 
 describe("parameter scan button", () => {
   testSimulationButton("Run", () => {
-    renderWithinWorkspace(<div>
-                            <ParameterScanPanel />
-                            <PlotPanel />
-                         </div>)
+    renderWithinWorkspace(
+      <div>
+        <ParameterScanPanel />
+        <PlotPanel />
+      </div>,
+    );
   });
 
   // TODO: need tests to see if the plot display is correct
