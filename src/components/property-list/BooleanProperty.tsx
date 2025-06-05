@@ -1,6 +1,6 @@
 import { Checkbox as RadixCheckbox } from "radix-ui";
 import styles from "./PropertyList.module.css";
-import CheckIcon from "@/icons/CheckIcon";
+import CheckIcon from "@/assets/icons//CheckIcon.svg?react";
 
 export interface BooleanPropertyProps {
   name: string;

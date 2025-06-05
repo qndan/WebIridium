@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { Select as RadixSelect } from "radix-ui";
 import styles from "./PropertyList.module.css";
-import ChevronDownIcon from "@/icons/ChevronDownIcon";
-import CheckIcon from "@/icons/CheckIcon";
+import ChevronDownIcon from "@/assets/icons/ChevronDownIcon.svg?react";
+import CheckIcon from "@/assets/icons/CheckIcon.svg?react";
 
 export type SelectPropertyPropsBase = {
   name: string;

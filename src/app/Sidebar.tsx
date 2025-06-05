@@ -1,7 +1,7 @@
 import { Tabs as RadixTabs } from "radix-ui";
 import styles from "./Sidebar.module.css";
-import TimeCourseIcon from "@/icons/TimeCourseIcon";
-import ParameterScanIcon from "@/icons/ParameterScanIcon";
+import TimeCourseIcon from "@/assets/icons//TimeCourseIcon.svg?react";
+import ParameterScanIcon from "@/assets/icons//ParameterScanIcon.svg?react";
 
 export type SidebarTab = "TimeCourse" | "ParameterScan";
 

@@ -1,6 +1,6 @@
 import { Accordion as RadixAccordion } from "radix-ui";
 import styles from "./PropertyAccordion.module.css";
-import ChevronDownIcon from "@/icons/ChevronDownIcon";
+import ChevronDownIcon from "@/assets/icons//ChevronDownIcon.svg?react";
 
 export interface AccordionItemProps {
   title: React.ReactNode;

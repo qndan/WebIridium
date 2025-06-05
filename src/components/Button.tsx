@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import styles from "./Button.module.css";
-import CloseIcon from "@/icons/CloseIcon";
+import CloseIcon from "@/assets/icons//CloseIcon.svg?react";
 import PulseLoader from "./PulseLoader";
 
 export interface ButtonProps {

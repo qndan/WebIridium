@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 
 import styles from "./simulation.module.css";
 import Button from "@/components/Button";
-import PlayIcon from "@/icons/PlayIcon";
+import PlayIcon from "@/assets/icons//PlayIcon.svg?react";
 import PropertyAccordion from "@/components/property-accordion/PropertyAccordion";
 import PropertyAccordionItem from "@/components/property-accordion/PropertyAccordionItem";
 import PropertyList from "@/components/property-list/PropertyList";
